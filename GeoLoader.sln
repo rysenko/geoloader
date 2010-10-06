@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLoader", "GeoLoader\GeoLoader.csproj", "{73488217-6D09-4CB6-A5B7-AFEF1CF77CB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLoader.Tests", "GeoLoader.Tests\GeoLoader.Tests.csproj", "{F65100DB-FF43-4612-A26E-2A558B024CAD}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GeoLoader.Installer", "GeoLoader.Installer\GeoLoader.Installer.vdproj", "{238FAC9D-F7C8-45B8-8107-F1C502311D9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73488217-6D09-4CB6-A5B7-AFEF1CF77CB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73488217-6D09-4CB6-A5B7-AFEF1CF77CB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73488217-6D09-4CB6-A5B7-AFEF1CF77CB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73488217-6D09-4CB6-A5B7-AFEF1CF77CB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F65100DB-FF43-4612-A26E-2A558B024CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65100DB-FF43-4612-A26E-2A558B024CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65100DB-FF43-4612-A26E-2A558B024CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65100DB-FF43-4612-A26E-2A558B024CAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{238FAC9D-F7C8-45B8-8107-F1C502311D9A}.Debug|Any CPU.ActiveCfg = Debug
+		{238FAC9D-F7C8-45B8-8107-F1C502311D9A}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
