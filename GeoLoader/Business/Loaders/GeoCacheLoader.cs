@@ -57,7 +57,7 @@ namespace GeoLoader.Business.Loaders
             cache.PlacedBy = nameMathResult.Groups[3].Value;
             cache.TypeCode = nameMathResult.Groups[4].Value;
             var created = GetFieldValue("Создан");
-            cache.PlacedDate = DateTime.Parse(created);
+            cache.PlacedDate = DateTime.ParseExact(created, "dd.MM.yyyy", CultureInfo.InvariantCulture);
             
             // Load log
             var logData = client.DownloadString("http://pda.geocaching.su/note.php?cid=" + cacheId);
