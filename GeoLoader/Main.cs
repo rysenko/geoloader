@@ -28,6 +28,7 @@ namespace GeoLoader
         {
             var loader = new CountryLoader();
             countries = loader.List();
+            countries.Add(new Country {Id = -1, Name = "Из .wpt файла..."});
             foreach (var country in countries)
             {
                 ddlCountry.Items.Add(country.Name);
@@ -61,13 +62,28 @@ namespace GeoLoader
         private void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             var countryId = FindCountryIdByName(countries, ddlCountry.SelectedItem.ToString());
-            var loader = new RegionLoader();
-            regions = loader.List(countryId);
             ddlRegion.Items.Clear();
-            foreach (var region in regions)
+            if (countryId == -1)
             {
-                ddlRegion.Items.Add(region.Name);
+                var dialog = new OpenFileDialog {Title = "Выберите wpt файл", Filter = "wpt files (*.wpt)|*.wpt", RestoreDirectory = true};
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var wptLister = new WptListLoader();
+                    caches = wptLister.List(dialog.FileName);
+                    btnSave.Enabled = true;
+                    btnSave_Click(sender, e);
+                }
             }
+            else
+            {
+                var loader = new RegionLoader();
+                regions = loader.List(countryId);
+                foreach (var region in regions)
+                {
+                    ddlRegion.Items.Add(region.Name);
+                }
+            }
+            
         }
 
         private void ddlRegion_SelectedIndexChanged(object sender, EventArgs e)
@@ -75,9 +91,9 @@ namespace GeoLoader
             var countryId = FindCountryIdByName(countries, ddlCountry.SelectedItem.ToString());
             var regionId = FindRegionIdByName(regions, ddlRegion.SelectedItem.ToString());
             var loader = new CacheListLoader();
-            lblCaches.Text = "Listing Caches...";
+            lblCaches.Text = "Загрузка списка...";
             caches = loader.List(countryId, regionId);
-            lblCaches.Text = "Caches: " + caches.Count;
+            lblCaches.Text = "Кэшей: " + caches.Count;
             btnSave.Enabled = true;
         }
 
@@ -106,14 +122,15 @@ namespace GeoLoader
                 dialog.ShowDialog();
                 if (dialog.SelectedPath != "")
                 {
-                    btnSave.Text = "Cancel";
-                    savingWorker.RunWorkerAsync(new SavingWorkerArgument { SelectedPath = dialog.SelectedPath, SelectedRegion = ddlRegion.SelectedItem.ToString() });
+                    btnSave.Text = "Отмена";
+                    var selectedRegion = ddlRegion.SelectedItem != null ? ddlRegion.SelectedItem.ToString() : "Wpt";
+                    savingWorker.RunWorkerAsync(new SavingWorkerArgument { SelectedPath = dialog.SelectedPath, SelectedRegion = selectedRegion });
                 }
             }
             else
             {
                 savingWorker.CancelAsync();
-                btnSave.Text = "Save";
+                btnSave.Text = "Сохранить";
             }
         }
 
@@ -121,7 +138,7 @@ namespace GeoLoader
         {
             var argument = e.Argument as SavingWorkerArgument;
             var cachesLoaded = 0;
-            savingWorker.ReportProgress(0, "Loading Caches...");
+            savingWorker.ReportProgress(0, "Загрузка кэшей...");
             var cachesList = new List<GeoCache>();
             foreach (var cacheId in caches)
             {
@@ -135,7 +152,7 @@ namespace GeoLoader
                 savingWorker.ReportProgress(cachesLoaded * 100 / caches.Count);
                 cachesLoaded++;
             }
-            savingWorker.ReportProgress(100, "Saving Caches...");
+            savingWorker.ReportProgress(100, "Сохранение кэшей...");
             var gpxFolderPath = Path.Combine(argument.SelectedPath, "GPX");
             if (!Directory.Exists(gpxFolderPath)) Directory.CreateDirectory(gpxFolderPath);
             var gpxFilePath = Path.Combine(gpxFolderPath, GetRegionFileName(argument.SelectedRegion));
@@ -145,7 +162,7 @@ namespace GeoLoader
             fs.Close();
             if (Settings.Default.GeotagAndSaveCachePhotos)
             {
-                savingWorker.ReportProgress(0, "Saving Images...");
+                savingWorker.ReportProgress(0, "Сохранение картинок...");
                 var imagesFolderPath = Path.Combine(argument.SelectedPath, "JPEG");
                 if (!Directory.Exists(imagesFolderPath)) Directory.CreateDirectory(imagesFolderPath);
                 var imagesSaved = 0;
@@ -168,7 +185,7 @@ namespace GeoLoader
                     }
                     catch
                     {
-                        savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count, "Skipped Image " + cache.Id);
+                        savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count, "Пропущена " + cache.Id);
                     }
                     imagesSaved++;
                 }
@@ -179,16 +196,16 @@ namespace GeoLoader
         {
             if (e.Cancelled)
             {
-                lblCaches.Text = "Canceled!";
+                lblCaches.Text = "Отменено!";
             }
             else if (e.Error != null)
             {
-                lblCaches.Text = "Error: " + e.Error.Message;
+                lblCaches.Text = "Ошибка: " + e.Error.Message;
             }
             else
             {
-                lblCaches.Text = "Done!";
-                btnSave.Text = "Save";
+                lblCaches.Text = "Готово!";
+                btnSave.Text = "Сохранить";
             }
         }
 

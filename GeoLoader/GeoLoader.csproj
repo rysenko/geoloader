@@ -47,6 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\Loaders\WptListLoader.cs" />
     <Compile Include="Business\Savers\GpsInfoSaver.cs" />
     <Compile Include="Business\Loaders\CacheListLoader.cs" />
     <Compile Include="Business\Loaders\GeoCacheLoader.cs" />

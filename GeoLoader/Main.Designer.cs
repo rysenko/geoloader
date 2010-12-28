@@ -62,18 +62,18 @@
             this.lblCaches.AutoSize = true;
             this.lblCaches.Location = new System.Drawing.Point(167, 17);
             this.lblCaches.Name = "lblCaches";
-            this.lblCaches.Size = new System.Drawing.Size(41, 13);
+            this.lblCaches.Size = new System.Drawing.Size(39, 13);
             this.lblCaches.TabIndex = 2;
-            this.lblCaches.Text = "Ready!";
+            this.lblCaches.Text = "Готов!";
             // 
             // btnSave
             // 
             this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(168, 39);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(104, 21);
+            this.btnSave.Size = new System.Drawing.Size(123, 21);
             this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "Save";
+            this.btnSave.Text = "Сохранить";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -81,7 +81,7 @@
             // 
             this.prgSaving.Location = new System.Drawing.Point(13, 67);
             this.prgSaving.Name = "prgSaving";
-            this.prgSaving.Size = new System.Drawing.Size(259, 15);
+            this.prgSaving.Size = new System.Drawing.Size(278, 15);
             this.prgSaving.TabIndex = 4;
             // 
             // savingWorker
@@ -96,7 +96,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 92);
+            this.ClientSize = new System.Drawing.Size(303, 92);
             this.Controls.Add(this.prgSaving);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblCaches);
