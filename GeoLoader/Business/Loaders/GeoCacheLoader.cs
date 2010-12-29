@@ -45,6 +45,7 @@ namespace GeoLoader.Business.Loaders
             }
             cache.ShortDescription = GetBlockValue("Атрибуты", false);
             cache.LongDescription = GetBlockValue("Описание окружающей местности", true);
+            cache.CacheContents = GetBlockValue("Содержимое тайника", false);
             cache.Hints = GetBlockValue("Описание тайника", false);
             var nameRegex = new Regex(@"<p><b>([^<]+)</b> от <b><a href=""profile.php\?uid=(\d+)"">'(.+?)'</a></b><br><i>\(\w+? (\w{2})" + cacheId + @"\)</i>");
             var nameMathResult = nameRegex.Match(cacheData);

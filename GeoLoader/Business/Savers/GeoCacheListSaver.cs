@@ -49,6 +49,9 @@ namespace GeoLoader.Business.Savers
                 writer.WriteElementString("desc", cache.Name);
                 writer.WriteElementString("urlname", cache.Name);
                 writer.WriteElementString("url", cache.Url);
+                /*writer.WriteStartElement("link");
+                writer.WriteAttributeString("href", cache.Id + ".jpg");
+                writer.WriteEndElement();*/
                 writer.WriteElementString("time", cache.PlacedDate.ToString("s"));
                 writer.WriteStartElement("groundspeak", "cache", "http://www.groundspeak.com/cache/1/0");
                 writer.WriteAttributeString("id", cache.Id.ToString());

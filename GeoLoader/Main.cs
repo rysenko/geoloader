@@ -23,6 +23,7 @@ namespace GeoLoader
         private List<Country> countries;
         private List<Region> regions;
         private List<int> caches;
+        private string wptName;
 
         private void Main_Load(object sender, EventArgs e)
         {
@@ -70,6 +71,7 @@ namespace GeoLoader
                 {
                     var wptLister = new WptListLoader();
                     caches = wptLister.List(dialog.FileName);
+                    wptName = Path.GetFileNameWithoutExtension(dialog.FileName);
                     btnSave.Enabled = true;
                     btnSave_Click(sender, e);
                 }
@@ -123,7 +125,7 @@ namespace GeoLoader
                 if (dialog.SelectedPath != "")
                 {
                     btnSave.Text = "Отмена";
-                    var selectedRegion = ddlRegion.SelectedItem != null ? ddlRegion.SelectedItem.ToString() : "Wpt";
+                    var selectedRegion = ddlRegion.SelectedItem != null ? ddlRegion.SelectedItem.ToString() : wptName;
                     savingWorker.RunWorkerAsync(new SavingWorkerArgument { SelectedPath = dialog.SelectedPath, SelectedRegion = selectedRegion });
                 }
             }

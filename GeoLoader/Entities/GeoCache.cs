@@ -10,7 +10,28 @@ namespace GeoLoader.Entities
         public double Latitude;
         public double Longitude;
         public string Name;
-        public string ShortDescription;
+        public string CacheContents;
+        private string shortDescription;
+        public string ShortDescription
+        {
+            get
+            {
+                var result = shortDescription;
+                if (!string.IsNullOrEmpty(CacheContents))
+                {
+                    if (!string.IsNullOrEmpty(result))
+                    {
+                        result += "<br><br>";
+                    }
+                    result += "Содержимое тайника:" + CacheContents;
+                }
+                return result;
+            }
+            set
+            {
+                shortDescription = value;
+            }
+        }
         private string longDescription;
         public string LongDescription
         {
