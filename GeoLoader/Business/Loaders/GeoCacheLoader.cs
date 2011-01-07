@@ -20,11 +20,11 @@ namespace GeoLoader.Business.Loaders
         {
             var cache = new GeoCache {Id = cacheId, Url = "http://pda.geocaching.su/cache.php?cid=" + cacheId};
             cacheData = client.DownloadString(cache.Url);
-            cache.Country = GetFieldValue("Страна");
-            cache.State = GetFieldValue("Область");
-            cache.Difficulty = int.Parse(GetFieldValue("Доступность"));
-            cache.Terrain = int.Parse(GetFieldValue("Местность"));
-            var coordinates = GetFieldValue(@"Координаты \(WGS 84\)").Replace("<font class=coords>", "").Replace("</font>", "");
+            cache.Country = GetFieldValue("Страна", true);
+            cache.State = GetFieldValue("Область", false);
+            cache.Difficulty = int.Parse(GetFieldValue("Доступность", true));
+            cache.Terrain = int.Parse(GetFieldValue("Местность", true));
+            var coordinates = GetFieldValue(@"Координаты \(WGS 84\)", true).Replace("<font class=coords>", "").Replace("</font>", "");
             var coordRegex = new Regex(@"([NS]) (\d{1,2})&#176; (\d{1,2}.\d{3})' &nbsp;&nbsp;&nbsp;([EW]) (\d{1,2})&#176; (\d{1,2}.\d{3})'");
             var coordMathResult = coordRegex.Match(coordinates);
             if (!coordMathResult.Success)
@@ -57,7 +57,7 @@ namespace GeoLoader.Business.Loaders
             cache.PlacedById = int.Parse(nameMathResult.Groups[2].Value);
             cache.PlacedBy = nameMathResult.Groups[3].Value;
             cache.TypeCode = nameMathResult.Groups[4].Value;
-            var created = GetFieldValue("Создан");
+            var created = GetFieldValue("Создан", true);
             cache.PlacedDate = DateTime.ParseExact(created, "dd.MM.yyyy", CultureInfo.InvariantCulture);
             
             // Load log
@@ -83,11 +83,11 @@ namespace GeoLoader.Business.Loaders
             return cache;
         }
 
-        string GetFieldValue(string fieldName)
+        string GetFieldValue(string fieldName, bool required)
         {
             var fieldRegex = new Regex(fieldName + @": <b>(.+?)</b>");
             var matchResult = fieldRegex.Match(cacheData);
-            if (!matchResult.Success)
+            if (!matchResult.Success && required)
             {
                 throw new Exception("Field " + fieldName + " not found for cache " + cacheId);
             }
