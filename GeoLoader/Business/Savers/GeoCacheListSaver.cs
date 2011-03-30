@@ -31,28 +31,30 @@ namespace GeoLoader.Business.Savers
             writer.WriteElementString("email", "org@geocaching.ru");
             writer.WriteElementString("url", "http://www.geocaching.su");
             writer.WriteElementString("urlname", "Geocaching - High Tech Treasure Hunting");
+            writer.WriteElementString("keywords", "cache, geocache");
             writer.WriteStartElement("bounds");
             writer.WriteAttributeString("minlat", "-90");
             writer.WriteAttributeString("minlon", "0");
             writer.WriteAttributeString("maxlat", "90");
             writer.WriteAttributeString("maxlon", "180");
             writer.WriteEndElement();
-            writer.WriteElementString("keywords", "cache, geocache");
             foreach (var cache in list)
             {
                 writer.WriteStartElement("wpt");
                 writer.WriteAttributeString("lat", cache.Latitude.ToString(CultureInfo.InvariantCulture));
                 writer.WriteAttributeString("lon", cache.Longitude.ToString(CultureInfo.InvariantCulture));
-                writer.WriteElementString("type", "Geocache|" + cache.Type);
-                writer.WriteElementString("sym", "Geocache");
+                writer.WriteElementString("time", cache.PlacedDate.ToString("s"));
                 writer.WriteElementString("name", cache.TypeCode + cache.Id);
                 writer.WriteElementString("desc", cache.Name);
-                writer.WriteElementString("urlname", cache.Name);
                 writer.WriteElementString("url", cache.Url);
+                writer.WriteElementString("urlname", cache.Name);
+                writer.WriteElementString("sym", "Geocache");
+                writer.WriteElementString("type", "Geocache|" + cache.Type);
+                
                 /*writer.WriteStartElement("link");
                 writer.WriteAttributeString("href", cache.Id + ".jpg");
                 writer.WriteEndElement();*/
-                writer.WriteElementString("time", cache.PlacedDate.ToString("s"));
+                
                 writer.WriteStartElement("groundspeak", "cache", "http://www.groundspeak.com/cache/1/0");
                 writer.WriteAttributeString("id", cache.Id.ToString());
                 writer.WriteAttributeString("available", cache.Available ? "True" : "False");
