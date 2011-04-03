@@ -16,14 +16,14 @@ namespace GeoLoader.Tests
             var client = new Client();
             var imageData = client.DownloadData("http://www.geocaching.su/photos/caches/5965.jpg");
             File.WriteAllBytes("D:\\5965.jpg", imageData);
-            GpsInfoSaver.WriteLongLat("D:\\5965.jpg", cache.Latitude, cache.Longitude);
+            GpsInfoSaver.WriteLongLat(File.ReadAllBytes("D:\\5965.jpg"), cache.Latitude, cache.Longitude);
         }
 
         [Test]
         public void Geotag8020Image()
         {
             var cache = new GeoCacheLoader(6641).Load();
-            GpsInfoSaver.WriteLongLat("D:\\6641.jpg", cache.Latitude, cache.Longitude);
+            GpsInfoSaver.WriteLongLat(File.ReadAllBytes("D:\\6641.jpg"), cache.Latitude, cache.Longitude);
         }
     }
 }

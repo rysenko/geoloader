@@ -20,12 +20,17 @@ namespace GeoLoader.Business.Savers
             return null;
         }
 
-        public static void WriteLongLat(string filename, double latitude, double longitude)
+        public static byte[] WriteLongLat(byte[] fileData, double latitude, double longitude)
         {
-            var image = Image.FromFile(filename);
-            image.Save(filename + ".tmp", ImageFormat.Bmp);
+            var inputMs = new MemoryStream(fileData);
+            var image = Image.FromStream(inputMs);
+            inputMs.Flush();
+            var bitmapMs = new MemoryStream();
+            image.Save(bitmapMs, ImageFormat.Bmp);
             image.Dispose();
-            image = Image.FromFile(filename + ".tmp");
+            inputMs.Dispose();
+            bitmapMs.Flush();
+            image = Image.FromStream(bitmapMs);
 
             // GPS Tag Version
             PropertyItem pitem = CreateNewPropertyItem(0x0);
@@ -53,9 +58,12 @@ namespace GeoLoader.Business.Savers
             pitem.Value[0] = (byte) (longitude < 0 ? 'W' : 'E');
             image.SetPropertyItem(pitem);
 
-            image.Save(filename, ImageFormat.Jpeg);
+            var outputMs = new MemoryStream();
+            image.Save(outputMs, ImageFormat.Jpeg);
             image.Dispose();
-            File.Delete(filename + ".tmp");
+            bitmapMs.Dispose();
+            outputMs.Flush();
+            return outputMs.GetBuffer();
         }
 
         private static ImageCodecInfo GetEncoder(ImageFormat format)

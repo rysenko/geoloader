@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 using BinaryAnalysis.UnidecodeSharp;
 using GeoLoader.Business;
@@ -27,6 +28,7 @@ namespace GeoLoader
 
         private void Main_Load(object sender, EventArgs e)
         {
+            Text += " " + Assembly.GetExecutingAssembly().GetName().Version;
             var loader = new CountryLoader();
             countries = loader.List();
             countries.Add(new Country {Id = -1, Name = "Из .wpt файла..."});
@@ -181,8 +183,8 @@ namespace GeoLoader
                         var imageData =
                             client.DownloadData("http://www.geocaching.su/photos/caches/" + cache.Id + ".jpg");
                         var imagePath = imagesFolderPath + "\\" + cache.Id + ".jpg";
+                        imageData = GpsInfoSaver.WriteLongLat(imageData, cache.Latitude, cache.Longitude);
                         File.WriteAllBytes(imagePath, imageData);
-                        GpsInfoSaver.WriteLongLat(imagePath, cache.Latitude, cache.Longitude);
                         savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count);
                     }
                     catch

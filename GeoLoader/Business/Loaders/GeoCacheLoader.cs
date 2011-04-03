@@ -89,7 +89,7 @@ namespace GeoLoader.Business.Loaders
             var matchResult = fieldRegex.Match(cacheData);
             if (!matchResult.Success && required)
             {
-                throw new Exception("Field " + fieldName + " not found for cache " + cacheId);
+                throw new Exception("Поле " + fieldName + " не найдена для кэша " + cacheId);
             }
             return matchResult.Groups[1].Value;
         }
@@ -100,7 +100,7 @@ namespace GeoLoader.Business.Loaders
             var matchResult = blockRegex.Match(cacheData);
             if (!matchResult.Success && required)
             {
-                throw new Exception("Block " + blockName + " not found for cache " + cacheId);
+                throw new Exception("Блок " + blockName + " не найден для кэша " + cacheId);
             }
             return matchResult.Groups[2].Value;
         }
