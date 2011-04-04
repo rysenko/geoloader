@@ -26,7 +26,7 @@ namespace GeoLoader.Business.Savers
             var image = Image.FromStream(inputMs);
             inputMs.Flush();
             var bitmapMs = new MemoryStream();
-            image.Save(bitmapMs, ImageFormat.Bmp);
+            image.Save(bitmapMs, ImageFormat.Tiff);
             image.Dispose();
             inputMs.Dispose();
             bitmapMs.Flush();

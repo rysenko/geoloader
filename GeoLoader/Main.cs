@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
 using BinaryAnalysis.UnidecodeSharp;
@@ -187,9 +188,13 @@ namespace GeoLoader
                         File.WriteAllBytes(imagePath, imageData);
                         savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count);
                     }
-                    catch
+                    catch (WebException)
                     {
                         savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count, "Пропущена " + cache.Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка");
                     }
                     imagesSaved++;
                 }
