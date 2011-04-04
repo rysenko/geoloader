@@ -29,7 +29,7 @@ namespace GeoLoader.Business.Loaders
             var coordMathResult = coordRegex.Match(coordinates);
             if (!coordMathResult.Success)
             {
-                throw new Exception("Error parsing coordinates for cache " + cacheId);
+                throw new Exception("Ошибка парсинга координат для кэша " + cacheId);
             }
             cache.Latitude = int.Parse(coordMathResult.Groups[2].Value) +
                            double.Parse(coordMathResult.Groups[3].Value, CultureInfo.InvariantCulture) / 60;
@@ -51,7 +51,7 @@ namespace GeoLoader.Business.Loaders
             var nameMathResult = nameRegex.Match(cacheData);
             if (!nameMathResult.Success)
             {
-                throw new Exception("Error parsing name and author of cache " + cacheId);
+                throw new Exception("Ошибка парсинга имени и автора для кэша " + cacheId);
             }
             cache.Name = nameMathResult.Groups[1].Value;
             cache.PlacedById = int.Parse(nameMathResult.Groups[2].Value);
@@ -89,7 +89,7 @@ namespace GeoLoader.Business.Loaders
             var matchResult = fieldRegex.Match(cacheData);
             if (!matchResult.Success && required)
             {
-                throw new Exception("Поле " + fieldName + " не найдена для кэша " + cacheId);
+                throw new Exception("Поле " + fieldName + " не найдено для кэша " + cacheId);
             }
             return matchResult.Groups[1].Value;
         }

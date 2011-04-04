@@ -204,7 +204,8 @@ namespace GeoLoader
             }
             else if (e.Error != null)
             {
-                lblCaches.Text = "Ошибка: " + e.Error.Message;
+                MessageBox.Show(e.Error.Message, "Ошибка");
+                lblCaches.Text = "Ошибка!";
             }
             else
             {
