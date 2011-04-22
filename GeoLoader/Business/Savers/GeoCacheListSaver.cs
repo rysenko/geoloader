@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
 using GeoLoader.Entities;
+using GeoLoader.Properties;
 
 namespace GeoLoader.Business.Savers
 {
@@ -44,15 +46,14 @@ namespace GeoLoader.Business.Savers
                 writer.WriteAttributeString("lat", cache.Latitude.ToString(CultureInfo.InvariantCulture));
                 writer.WriteAttributeString("lon", cache.Longitude.ToString(CultureInfo.InvariantCulture));
                 writer.WriteElementString("time", cache.PlacedDate.ToString("s"));
-                writer.WriteElementString("name", cache.TypeCode + cache.Id);
-                writer.WriteElementString("desc", cache.Name);
+                writer.WriteElementString("name", Settings.Default.SavePoiStyleGpx ? cache.Name : cache.TypeCode + cache.Id);
+                writer.WriteElementString("desc", Settings.Default.SavePoiStyleGpx ? GetPoiDescription(cache) : cache.Name);
                 writer.WriteElementString("url", cache.Url);
                 writer.WriteElementString("urlname", cache.Name);
                 writer.WriteElementString("sym", "Geocache");
                 writer.WriteElementString("type", "Geocache|" + cache.Type);
-                
                 /*writer.WriteStartElement("link");
-                writer.WriteAttributeString("href", cache.Id + ".jpg");
+                writer.WriteAttributeString("href", string.Format("../JPEG/{0}.jpg", cache.Id));
                 writer.WriteEndElement();*/
                 
                 writer.WriteStartElement("groundspeak", "cache", "http://www.groundspeak.com/cache/1/0");
@@ -96,6 +97,15 @@ namespace GeoLoader.Business.Savers
             writer.WriteEndElement();
             writer.WriteEndDocument();
             writer.Flush();
+        }
+
+        public string GetPoiDescription(GeoCache cache)
+        {
+            var result = string.Concat(
+                cache.TypeCode, cache.Id, ", трудность: ", cache.Difficulty, ", местность: ", cache.Terrain, "\n\n",
+                HtmlToText(cache.Hints)/*, "\n\n", HtmlToText(cache.LongDescription)*/
+            );
+            return result;
         }
 
         public string HtmlToText(string htmlCode)

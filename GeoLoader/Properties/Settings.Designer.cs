@@ -58,5 +58,14 @@ namespace GeoLoader.Properties {
                 return ((int)(this["MaxLogEntriesToSave"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SavePoiStyleGpx {
+            get {
+                return ((bool)(this["SavePoiStyleGpx"]));
+            }
+        }
     }
 }

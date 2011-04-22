@@ -56,7 +56,7 @@ namespace GeoLoader.Entities
             {
                 if (string.IsNullOrEmpty(TypeCode))
                 {
-                    throw new Exception("TypeCode isn't set for cache #" + Id);
+                    throw new Exception("Тип не задан для кэша " + Id);
                 }
                 var type = "Unknown Cache";
                 switch (TypeCode)
