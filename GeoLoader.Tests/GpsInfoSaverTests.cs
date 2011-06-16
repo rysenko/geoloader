@@ -10,13 +10,13 @@ namespace GeoLoader.Tests
     public class GpsInfoSaverTests
     {
         [Test]
-        public void Geotag5965Image()
+        public void Geotag8352Image()
         {
-            var cache = new GeoCacheLoader(5965).Load();
+            var cache = new GeoCacheLoader(8352).Load();
             var client = new Client();
-            var imageData = client.DownloadData("http://www.geocaching.su/photos/caches/5965.jpg");
-            File.WriteAllBytes("D:\\5965.jpg", imageData);
-            GpsInfoSaver.WriteLongLat(File.ReadAllBytes("D:\\5965.jpg"), cache.Latitude, cache.Longitude);
+            var imageData = client.DownloadData("http://www.geocaching.su/photos/caches/8352.jpg");
+            File.WriteAllBytes("D:\\8352.jpg", imageData);
+            GpsInfoSaver.WriteLongLat(File.ReadAllBytes("D:\\8352.jpg"), cache.Latitude, cache.Longitude);
         }
 
         [Test]

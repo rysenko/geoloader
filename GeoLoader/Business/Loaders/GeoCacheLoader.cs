@@ -25,7 +25,7 @@ namespace GeoLoader.Business.Loaders
             cache.Difficulty = int.Parse(GetFieldValue("Доступность", true));
             cache.Terrain = int.Parse(GetFieldValue("Местность", true));
             var coordinates = GetFieldValue(@"Координаты \(WGS 84\)", true).Replace("<font class=coords>", "").Replace("</font>", "");
-            var coordRegex = new Regex(@"([NS]) (\d{1,2})&#176; (\d{1,2}.\d{3})' &nbsp;&nbsp;&nbsp;([EW]) (\d{1,2})&#176; (\d{1,2}.\d{3})'");
+            var coordRegex = new Regex(@"([NS]) (\d{1,2})&#176; (\d{1,2}.\d{3})' &nbsp;&nbsp;&nbsp;([EW]) (\d{1,3})&#176; (\d{1,2}.\d{3})'");
             var coordMathResult = coordRegex.Match(coordinates);
             if (!coordMathResult.Success)
             {
