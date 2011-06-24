@@ -165,7 +165,7 @@ namespace GeoLoader
             new GeoCacheListSaver(cachesList).Save(fs);
             fs.Flush();
             fs.Close();
-            if (Settings.Default.GeotagAndSaveCachePhotos)
+            if (Settings.Default.GeotagAndSaveCachePhotos && !Settings.Default.SaveMinimalInfo)
             {
                 savingWorker.ReportProgress(0, "Сохранение картинок...");
                 var imagesFolderPath = Path.Combine(argument.SelectedPath, "JPEG");

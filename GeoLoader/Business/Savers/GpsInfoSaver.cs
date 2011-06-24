@@ -8,18 +8,6 @@ namespace GeoLoader.Business.Savers
 {
     public class GpsInfoSaver
     {
-        private static ImageCodecInfo GetEncoderInfo(String mimeType)
-        {
-            int j;
-            ImageCodecInfo[] encoders = ImageCodecInfo.GetImageEncoders();
-            for (j = 0; j < encoders.Length; ++j)
-            {
-                if (encoders[j].MimeType == mimeType)
-                    return encoders[j];
-            }
-            return null;
-        }
-
         public static byte[] WriteLongLat(byte[] fileData, double latitude, double longitude)
         {
             var inputMs = new MemoryStream(fileData);
@@ -64,21 +52,6 @@ namespace GeoLoader.Business.Savers
             bitmapMs.Dispose();
             outputMs.Flush();
             return outputMs.GetBuffer();
-        }
-
-        private static ImageCodecInfo GetEncoder(ImageFormat format)
-        {
-
-            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
-
-            foreach (ImageCodecInfo codec in codecs)
-            {
-                if (codec.FormatID == format.Guid)
-                {
-                    return codec;
-                }
-            }
-            return null;
         }
 
         public static byte[] GetExifBytes(double coordinate)

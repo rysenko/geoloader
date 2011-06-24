@@ -42,6 +42,7 @@ namespace GeoLoader.Business.Savers
             writer.WriteEndElement();
             foreach (var cache in list)
             {
+                if (Settings.Default.SaveMinimalInfo && cache.TypeCode != "TR") continue;
                 writer.WriteStartElement("wpt");
                 writer.WriteAttributeString("lat", cache.Latitude.ToString(CultureInfo.InvariantCulture));
                 writer.WriteAttributeString("lon", cache.Longitude.ToString(CultureInfo.InvariantCulture));
@@ -52,10 +53,6 @@ namespace GeoLoader.Business.Savers
                 writer.WriteElementString("urlname", cache.Name);
                 writer.WriteElementString("sym", "Geocache");
                 writer.WriteElementString("type", "Geocache|" + cache.Type);
-                /*writer.WriteStartElement("link");
-                writer.WriteAttributeString("href", string.Format("../JPEG/{0}.jpg", cache.Id));
-                writer.WriteEndElement();*/
-                
                 writer.WriteStartElement("groundspeak", "cache", "http://www.groundspeak.com/cache/1/0");
                 writer.WriteAttributeString("id", cache.Id.ToString());
                 writer.WriteAttributeString("available", cache.Available ? "True" : "False");
@@ -74,23 +71,30 @@ namespace GeoLoader.Business.Savers
                 }
                 writer.WriteElementString("groundspeak", "difficulty", null, cache.Difficulty.ToString());
                 writer.WriteElementString("groundspeak", "terrain", null, cache.Terrain.ToString());
-                writer.WriteElementString("groundspeak", "short_description", null, cache.ShortDescription);
-                writer.WriteElementString("groundspeak", "long_description", null, ReplaceEntities(cache.LongDescription));
-                writer.WriteStartElement("groundspeak", "encoded_hints", "http://www.groundspeak.com/cache/1/0");
-                writer.WriteAttributeString("html", "True");
-                writer.WriteString(HtmlToText(cache.Hints));
-                writer.WriteEndElement();
-                writer.WriteStartElement("groundspeak", "logs", "http://www.groundspeak.com/cache/1/0");
-                foreach (var logEntry in cache.Log)
+                if (Settings.Default.SaveMinimalInfo)
                 {
-                    writer.WriteStartElement("groundspeak", "log", "http://www.groundspeak.com/cache/1/0");
-                    writer.WriteElementString("groundspeak", "type", null, "Found it");
-                    writer.WriteElementString("groundspeak", "date", null, logEntry.Date.ToString("s"));
-                    writer.WriteElementString("groundspeak", "finder", null, logEntry.Finder);
-                    writer.WriteElementString("groundspeak", "text", null, logEntry.Text);
+                    writer.WriteElementString("groundspeak", "long_description", null, ReplaceEntities(cache.Hints));
+                }
+                else
+                {
+                    writer.WriteElementString("groundspeak", "short_description", null, cache.ShortDescription);
+                    writer.WriteElementString("groundspeak", "long_description", null, ReplaceEntities(cache.LongDescription));
+                    writer.WriteStartElement("groundspeak", "encoded_hints", "http://www.groundspeak.com/cache/1/0");
+                    writer.WriteAttributeString("html", "True");
+                    writer.WriteString(HtmlToText(cache.Hints));
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("groundspeak", "logs", "http://www.groundspeak.com/cache/1/0");
+                    foreach (var logEntry in cache.Log)
+                    {
+                        writer.WriteStartElement("groundspeak", "log", "http://www.groundspeak.com/cache/1/0");
+                        writer.WriteElementString("groundspeak", "type", null, "Found it");
+                        writer.WriteElementString("groundspeak", "date", null, logEntry.Date.ToString("s"));
+                        writer.WriteElementString("groundspeak", "finder", null, logEntry.Finder);
+                        writer.WriteElementString("groundspeak", "text", null, logEntry.Text);
+                        writer.WriteEndElement();
+                    }
                     writer.WriteEndElement();
                 }
-                writer.WriteEndElement();
                 writer.WriteEndElement();
                 writer.WriteEndElement();
             }
