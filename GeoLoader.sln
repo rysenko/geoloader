@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLoader", "GeoLoader\GeoLoader.csproj", "{73488217-6D09-4CB6-A5B7-AFEF1CF77CB8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLoader.Tests", "GeoLoader.Tests\GeoLoader.Tests.csproj", "{F65100DB-FF43-4612-A26E-2A558B024CAD}"

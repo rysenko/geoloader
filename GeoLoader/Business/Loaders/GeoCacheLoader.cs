@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using GeoLoader.Entities;
@@ -80,6 +81,15 @@ namespace GeoLoader.Business.Loaders
                     logsAdded++;
                 }
             }
+
+            // Load images
+            cacheData = client.DownloadString("http://pda.geocaching.su/pict.php?cid=" + cacheId + "&mode=0");
+            var cacheImages = GetBlockImages("Фотография тайника");
+            if (cacheImages.Count > 0)
+            {
+                cache.CacheImage = cacheImages[0];
+            }
+            cache.TerritoryImages = GetBlockImages("Фотографии местности");
             return cache;
         }
 
@@ -103,6 +113,25 @@ namespace GeoLoader.Business.Loaders
                 throw new Exception("Блок " + blockName + " не найден для кэша " + cacheId);
             }
             return matchResult.Groups[2].Value;
+        }
+
+        List<string> GetBlockImages(string blockName)
+        {
+            var blockRegex = new Regex("<b>" + blockName + @":</b><br>([\w\W]+?)<hr>");
+            var matchResult = blockRegex.Match(cacheData);
+            if (!matchResult.Success)
+            {
+                throw new Exception("Блок " + blockName + " не найден для кэша " + cacheId);
+            }
+            var imagesData = matchResult.Groups[1].Value;
+            var imagesRegex = new Regex(@"href=""([^""]+)""");
+            var matchesResult = imagesRegex.Matches(imagesData);
+            var resultingList = new List<string>();
+            foreach (Match match in matchesResult)
+            {
+                resultingList.Add(match.Groups[1].Value);
+            }
+            return resultingList;
         }
     }
 }

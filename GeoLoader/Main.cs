@@ -11,7 +11,6 @@ using GeoLoader.Business.Loaders;
 using GeoLoader.Business.Savers;
 using GeoLoader.Entities;
 using GeoLoader.Properties;
-using Region=GeoLoader.Entities.Region;
 
 namespace GeoLoader
 {
@@ -178,23 +177,37 @@ namespace GeoLoader
                         e.Cancel = true;
                         break;
                     }
-                    var client = new Client();
-                    try
+                    if (!string.IsNullOrEmpty(cache.CacheImage))
                     {
-                        var imageData =
-                            client.DownloadData("http://www.geocaching.su/photos/caches/" + cache.Id + ".jpg");
-                        var imagePath = imagesFolderPath + "\\" + cache.Id + ".jpg";
-                        imageData = GpsInfoSaver.WriteLongLat(imageData, cache.Latitude, cache.Longitude);
-                        File.WriteAllBytes(imagePath, imageData);
-                        savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count);
-                    }
-                    catch (WebException)
-                    {
-                        savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count, "Пропущена " + cache.Id);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Ошибка");
+                        var client = new Client();
+                        try
+                        {
+                            var imageData =
+                                client.DownloadData(cache.CacheImage);
+                            var imagePath = imagesFolderPath + "\\" + cache.Id + ".jpg";
+                            imageData = GpsInfoSaver.WriteLongLat(imageData, cache.Latitude, cache.Longitude);
+                            File.WriteAllBytes(imagePath, imageData);
+                            if (Settings.Default.SaveTerritoryPhotos)
+                            {
+                                var territoryImageIndex = 1;
+                                foreach (var territoryImage in cache.TerritoryImages)
+                                {
+                                    imageData = client.DownloadData(territoryImage);
+                                    imagePath = imagesFolderPath + "\\" + cache.Id + "-" + territoryImageIndex + ".jpg";
+                                    File.WriteAllBytes(imagePath, imageData);
+                                    territoryImageIndex++;
+                                }
+                            }
+                            savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count);
+                        }
+                        catch (WebException)
+                        {
+                            savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count, "Пропущена " + cache.Id);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Ошибка");
+                        }
                     }
                     imagesSaved++;
                 }

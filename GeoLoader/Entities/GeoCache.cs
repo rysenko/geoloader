@@ -86,5 +86,7 @@ namespace GeoLoader.Entities
         public bool Available = true;
         public bool Archived;
         public List<LogEntry> Log = new List<LogEntry>();
+        public string CacheImage;
+        public List<string> TerritoryImages;
     }
 }
