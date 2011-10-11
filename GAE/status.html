@@ -1,0 +1,29 @@
+﻿<html>
+  <head>
+     <title>Подробный экспорт с GeoCaching.su для Garmin</title>
+     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+     <script type="text/javascript">
+       function checkFile() {
+         var fileName = '{{ file_name }}';
+         $.ajax({
+           url: 'status',
+           data: {file_name: fileName},
+           success: function(data) {
+             if (data == 'ready') {
+               location.href = 'download?file_name=' + fileName;
+             } else {
+               setTimeout(checkFile, 5000);
+             }
+           }
+         });
+       };
+       
+       $(document).ready(function() {
+         checkFile();
+       });
+     </script>
+  </head>
+  <body>
+    Ждите...
+  </body>
+</html>

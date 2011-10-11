@@ -1,0 +1,80 @@
+﻿<html>
+  <head>
+     <title>Подробный экспорт с GeoCaching.su для Garmin</title>
+     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+     <style type="text/css">
+       label {
+         float: left;
+         width: 100px;
+       }
+     </style>
+     <script type="text/javascript">
+       function translit(name) {
+         var ru = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+         var en = ['A','B','V','G','D','E','E','ZH','Z','I','J','K','L','M','N','O','P','R','S','T', 'U','F','H','C','CH','SH','SHH',String.fromCharCode(35),'Y',String.fromCharCode(39),'JE','JU','JA',
+                   'a','b','v','g','d','e','e','zh','z','i','j','k','l','m','n','o','p','r','s','t','u','f', 'h','c','ch','sh','shh',String.fromCharCode(35),'y',String.fromCharCode(39),'je','ju','ja'];
+         var tmp_str = '';
+         for(var i = 0, nameLen = name.length; i < nameLen; i++) {
+           var s = name.charAt(i), charIndex = ru.indexOf(s);
+           if(charIndex >= 0) {
+             tmp_str += en[charIndex];
+           } else {
+             tmp_str += s;
+           }
+         }
+         return tmp_str;
+       };
+       function get_region_filename(fileName) {
+         var spacePos = fileName.indexOf(' ');
+         if (spacePos != -1) {
+           fileName = fileName.substring(0, spacePos);
+           fileName = fileName.replace(/,$/g, '');
+         }
+         return translit(fileName) + '.gpx';
+       };
+       function loadRegion() {
+         var countryId = $('#country').val();
+         if (countryId != -1) {
+           $.ajax({
+             url: 'regions?country=' + countryId,
+             success: function(data) {
+               $('#region').html('<option value="-1">...</option>');
+               $(data).each(function() {
+                 $('#region').append($('<option></option>').attr('value', this[0]).text(this[1]));
+               });
+             }
+           });
+         }
+       };
+       
+       $(document).ready(function() {
+         $('#country').change(loadRegion);
+         $('#region').change(function() {
+           var selectedText = $("#region option:selected").text()
+           $('#file_name').val(get_region_filename(selectedText));
+         });
+         loadRegion();
+       });
+     </script>
+  </head>
+  <body>
+    <form action="status" method="POST">
+      <input type="hidden" id="file_name" name="file_name" value="Caches.gpx" />
+      <label for="country">Страна</label>
+      <select id="country" name="country">
+        <option value="-1">...</option>
+      {% for country in countries %}
+        <option value="{{ country.0 }}">{{ country.1 }}</option>
+      {% endfor %}
+      </select>
+      <br>
+      <label for="region">Область</label>
+      <select id="region" name="region">
+        <option value="-1">...</option>
+      </select>
+      <br>
+      <label for="download">&nbsp;</label>
+      <input id="download" type="submit" value="Загрузить GPX" />
+    </form>
+  </body>
+</html>
