@@ -9,6 +9,15 @@
        }
      </style>
      <script type="text/javascript">
+       function commLoad() {
+         var display = new Garmin.DeviceDisplay("garminDisplay", { 
+           pathKeyPairsArray: ["http://rugeoloader.appspot.com", "827148e1b078370ea59de24a0f2312d5"],
+           autoFindDevices: true, //start searching for devices
+           showStatusElement: true, //basic feedback provided
+           showReadDataElement: false, //don't offer to read data
+           //add other options per the documentation	
+         });
+       };
        function translit(name) {
          var ru = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
          var en = ['A','B','V','G','D','E','E','ZH','Z','I','J','K','L','M','N','O','P','R','S','T', 'U','F','H','C','CH','SH','SHH',String.fromCharCode(35),'Y',String.fromCharCode(39),'JE','JU','JA',
