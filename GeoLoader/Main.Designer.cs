@@ -32,7 +32,7 @@
             this.ddlCountry = new System.Windows.Forms.ComboBox();
             this.ddlRegion = new System.Windows.Forms.ComboBox();
             this.lblCaches = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnSaveGpx = new System.Windows.Forms.Button();
             this.prgSaving = new System.Windows.Forms.ProgressBar();
             this.savingWorker = new System.ComponentModel.BackgroundWorker();
             this.btnSavePoi = new System.Windows.Forms.Button();
@@ -67,16 +67,16 @@
             this.lblCaches.TabIndex = 2;
             this.lblCaches.Text = "Готов!";
             // 
-            // btnSave
+            // btnSaveGpx
             // 
-            this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(168, 39);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(61, 21);
-            this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "GPX";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSaveGpx_Click);
+            this.btnSaveGpx.Enabled = false;
+            this.btnSaveGpx.Location = new System.Drawing.Point(168, 39);
+            this.btnSaveGpx.Name = "btnSaveGpx";
+            this.btnSaveGpx.Size = new System.Drawing.Size(61, 21);
+            this.btnSaveGpx.TabIndex = 3;
+            this.btnSaveGpx.Text = "GPX";
+            this.btnSaveGpx.UseVisualStyleBackColor = true;
+            this.btnSaveGpx.Click += new System.EventHandler(this.btnSaveGpx_Click);
             // 
             // prgSaving
             // 
@@ -111,7 +111,7 @@
             this.ClientSize = new System.Drawing.Size(303, 92);
             this.Controls.Add(this.btnSavePoi);
             this.Controls.Add(this.prgSaving);
-            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.btnSaveGpx);
             this.Controls.Add(this.lblCaches);
             this.Controls.Add(this.ddlRegion);
             this.Controls.Add(this.ddlCountry);
@@ -133,7 +133,7 @@
         private System.Windows.Forms.ComboBox ddlCountry;
         private System.Windows.Forms.ComboBox ddlRegion;
         private System.Windows.Forms.Label lblCaches;
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnSaveGpx;
         private System.Windows.Forms.ProgressBar prgSaving;
         private System.ComponentModel.BackgroundWorker savingWorker;
         private System.Windows.Forms.Button btnSavePoi;

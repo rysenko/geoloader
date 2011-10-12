@@ -74,7 +74,8 @@ namespace GeoLoader
                     var wptLister = new WptListLoader();
                     caches = wptLister.List(dialog.FileName);
                     wptName = Path.GetFileNameWithoutExtension(dialog.FileName);
-                    btnSave.Enabled = true;
+                    btnSaveGpx.Enabled = true;
+                    btnSavePoi.Enabled = true;
                     //btnSave_Click(sender, e);
                 }
             }
@@ -98,7 +99,8 @@ namespace GeoLoader
             lblCaches.Text = "Загрузка списка...";
             caches = loader.List(countryId, regionId);
             lblCaches.Text = "Кэшей: " + caches.Count;
-            btnSave.Enabled = true;
+            btnSaveGpx.Enabled = true;
+            btnSavePoi.Enabled = true;
         }
 
         private string GetRegionFileName(string fileName)
@@ -137,7 +139,17 @@ namespace GeoLoader
                 dialog.ShowDialog();
                 if (dialog.SelectedPath != "")
                 {
-                    btnSave.Text = "Отмена";
+                    if (poiStyle)
+                    {
+                        btnSavePoi.Text = "X";
+                        btnSaveGpx.Enabled = false;
+                    }
+                    else
+                    {
+                        btnSaveGpx.Text = "X";
+                        btnSavePoi.Enabled = false;
+                    }
+                    
                     var selectedRegion = ddlRegion.SelectedItem != null ? ddlRegion.SelectedItem.ToString() : wptName;
                     savingWorker.RunWorkerAsync(new SavingWorkerArgument { SelectedPath = dialog.SelectedPath, SelectedRegion = selectedRegion, PoiStyle = poiStyle});
                 }
@@ -145,7 +157,10 @@ namespace GeoLoader
             else
             {
                 savingWorker.CancelAsync();
-                btnSave.Text = "Сохранить";
+                btnSaveGpx.Text = "GPX";
+                btnSavePoi.Text = "POI";
+                btnSaveGpx.Enabled = true;
+                btnSavePoi.Enabled = true;
             }
         }
 
@@ -239,7 +254,7 @@ namespace GeoLoader
             else
             {
                 lblCaches.Text = "Готово!";
-                btnSave.Text = "Сохранить";
+                btnSaveGpx.Text = "Сохранить";
             }
         }
 
