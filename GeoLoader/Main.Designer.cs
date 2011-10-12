@@ -35,6 +35,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.prgSaving = new System.Windows.Forms.ProgressBar();
             this.savingWorker = new System.ComponentModel.BackgroundWorker();
+            this.btnSavePoi = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ddlCountry
@@ -71,11 +72,11 @@
             this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(168, 39);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(123, 21);
+            this.btnSave.Size = new System.Drawing.Size(61, 21);
             this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "Сохранить";
+            this.btnSave.Text = "GPX";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Click += new System.EventHandler(this.btnSaveGpx_Click);
             // 
             // prgSaving
             // 
@@ -89,14 +90,26 @@
             this.savingWorker.WorkerReportsProgress = true;
             this.savingWorker.WorkerSupportsCancellation = true;
             this.savingWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.savingWorker_DoWork);
-            this.savingWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.savingWorker_RunWorkerCompleted);
             this.savingWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.savingWorker_ProgressChanged);
+            this.savingWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.savingWorker_RunWorkerCompleted);
+            // 
+            // btnSavePoi
+            // 
+            this.btnSavePoi.Enabled = false;
+            this.btnSavePoi.Location = new System.Drawing.Point(230, 39);
+            this.btnSavePoi.Name = "btnSavePoi";
+            this.btnSavePoi.Size = new System.Drawing.Size(61, 21);
+            this.btnSavePoi.TabIndex = 5;
+            this.btnSavePoi.Text = "POI";
+            this.btnSavePoi.UseVisualStyleBackColor = true;
+            this.btnSavePoi.Click += new System.EventHandler(this.btnSavePoi_Click);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 92);
+            this.Controls.Add(this.btnSavePoi);
             this.Controls.Add(this.prgSaving);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblCaches);
@@ -123,6 +136,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ProgressBar prgSaving;
         private System.ComponentModel.BackgroundWorker savingWorker;
+        private System.Windows.Forms.Button btnSavePoi;
 
 
     }

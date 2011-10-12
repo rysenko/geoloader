@@ -12,9 +12,11 @@ namespace GeoLoader.Business.Savers
     public class GeoCacheListSaver
     {
         private List<GeoCache> list;
-        public GeoCacheListSaver(List<GeoCache> list)
+        private bool poiStyle;
+        public GeoCacheListSaver(List<GeoCache> list, bool poiStyle)
         {
             this.list = list;
+            this.poiStyle = poiStyle;
         }
 
         public void Save(Stream stream)
@@ -47,9 +49,9 @@ namespace GeoLoader.Business.Savers
                 writer.WriteAttributeString("lat", cache.Latitude.ToString(CultureInfo.InvariantCulture));
                 writer.WriteAttributeString("lon", cache.Longitude.ToString(CultureInfo.InvariantCulture));
                 writer.WriteElementString("time", cache.PlacedDate.ToString("s"));
-                writer.WriteElementString("name", Settings.Default.SavePoiStyleGpx ? cache.Name : cache.TypeCode + cache.Id);
-                writer.WriteElementString("desc", Settings.Default.SavePoiStyleGpx ? GetPoiDescription(cache) : cache.Name);
-                writer.WriteElementString("url", cache.Url);
+                writer.WriteElementString("name", poiStyle ? cache.Name : cache.TypeCode + cache.Id);
+                writer.WriteElementString("desc", poiStyle ? GetPoiDescription(cache) : cache.Name);
+                writer.WriteElementString("url", poiStyle && cache.CacheImage != null ? cache.Id + ".jpg" : cache.Url);
                 writer.WriteElementString("urlname", cache.Name);
                 writer.WriteElementString("sym", "Geocache");
                 writer.WriteElementString("type", "Geocache|" + cache.Type);

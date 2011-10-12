@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLoader.Tests", "GeoLoade
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GeoLoader.Installer", "GeoLoader.Installer\GeoLoader.Installer.vdproj", "{238FAC9D-F7C8-45B8-8107-F1C502311D9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnidecodeSharp", "UnidecodeSharp\UnidecodeSharp.csproj", "{B268B199-851B-4326-BB4C-F054FCFBA4D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{F65100DB-FF43-4612-A26E-2A558B024CAD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{238FAC9D-F7C8-45B8-8107-F1C502311D9A}.Debug|Any CPU.ActiveCfg = Debug
 		{238FAC9D-F7C8-45B8-8107-F1C502311D9A}.Release|Any CPU.ActiveCfg = Release
+		{B268B199-851B-4326-BB4C-F054FCFBA4D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B268B199-851B-4326-BB4C-F054FCFBA4D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B268B199-851B-4326-BB4C-F054FCFBA4D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B268B199-851B-4326-BB4C-F054FCFBA4D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

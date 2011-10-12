@@ -75,7 +75,7 @@ namespace GeoLoader
                     caches = wptLister.List(dialog.FileName);
                     wptName = Path.GetFileNameWithoutExtension(dialog.FileName);
                     btnSave.Enabled = true;
-                    btnSave_Click(sender, e);
+                    //btnSave_Click(sender, e);
                 }
             }
             else
@@ -109,16 +109,27 @@ namespace GeoLoader
                 fileName = fileName.Substring(0, spacePos);
                 fileName = fileName.TrimEnd(',');
             }
-            return fileName.Unidecode() + ".gpx";
+            return Unidecoder.Unidecode(fileName) + ".gpx";
         }
 
         internal class SavingWorkerArgument
         {
             public string SelectedPath;
             public string SelectedRegion;
+            public bool PoiStyle;
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private void btnSaveGpx_Click(object sender, EventArgs e)
+        {
+            btnSave_Click(false);
+        }
+
+        private void btnSavePoi_Click(object sender, EventArgs e)
+        {
+            btnSave_Click(true);
+        }
+
+        private void btnSave_Click(bool poiStyle)
         {
             if(!savingWorker.IsBusy)
             {
@@ -128,7 +139,7 @@ namespace GeoLoader
                 {
                     btnSave.Text = "Отмена";
                     var selectedRegion = ddlRegion.SelectedItem != null ? ddlRegion.SelectedItem.ToString() : wptName;
-                    savingWorker.RunWorkerAsync(new SavingWorkerArgument { SelectedPath = dialog.SelectedPath, SelectedRegion = selectedRegion });
+                    savingWorker.RunWorkerAsync(new SavingWorkerArgument { SelectedPath = dialog.SelectedPath, SelectedRegion = selectedRegion, PoiStyle = poiStyle});
                 }
             }
             else
@@ -161,7 +172,7 @@ namespace GeoLoader
             if (!Directory.Exists(gpxFolderPath)) Directory.CreateDirectory(gpxFolderPath);
             var gpxFilePath = Path.Combine(gpxFolderPath, GetRegionFileName(argument.SelectedRegion));
             var fs = File.Create(gpxFilePath);
-            new GeoCacheListSaver(cachesList).Save(fs);
+            new GeoCacheListSaver(cachesList, argument.PoiStyle).Save(fs);
             fs.Flush();
             fs.Close();
             if (Settings.Default.GeotagAndSaveCachePhotos && !Settings.Default.SaveMinimalInfo)
