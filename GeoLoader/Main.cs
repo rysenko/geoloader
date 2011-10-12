@@ -183,7 +183,7 @@ namespace GeoLoader
                 cachesLoaded++;
             }
             savingWorker.ReportProgress(100, "Сохранение кэшей...");
-            var gpxFolderPath = Path.Combine(argument.SelectedPath, "GPX");
+            var gpxFolderPath = argument.PoiStyle ? argument.SelectedPath : Path.Combine(argument.SelectedPath, "GPX");
             if (!Directory.Exists(gpxFolderPath)) Directory.CreateDirectory(gpxFolderPath);
             var gpxFilePath = Path.Combine(gpxFolderPath, GetRegionFileName(argument.SelectedRegion));
             var fs = File.Create(gpxFilePath);
@@ -193,7 +193,7 @@ namespace GeoLoader
             if (Settings.Default.GeotagAndSaveCachePhotos && !Settings.Default.SaveMinimalInfo)
             {
                 savingWorker.ReportProgress(0, "Сохранение картинок...");
-                var imagesFolderPath = Path.Combine(argument.SelectedPath, "JPEG");
+                var imagesFolderPath = argument.PoiStyle ? argument.SelectedPath : Path.Combine(argument.SelectedPath, "JPEG");
                 if (!Directory.Exists(imagesFolderPath)) Directory.CreateDirectory(imagesFolderPath);
                 var imagesSaved = 0;
                 foreach (var cache in cachesList)
@@ -254,7 +254,10 @@ namespace GeoLoader
             else
             {
                 lblCaches.Text = "Готово!";
-                btnSaveGpx.Text = "Сохранить";
+                btnSaveGpx.Text = "GPX";
+                btnSavePoi.Text = "POI";
+                btnSaveGpx.Enabled = true;
+                btnSavePoi.Enabled = true;
             }
         }
 
