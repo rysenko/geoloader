@@ -51,7 +51,7 @@ namespace GeoLoader.Business.Savers
                 writer.WriteElementString("time", cache.PlacedDate.ToString("s"));
                 writer.WriteElementString("name", poiStyle ? cache.Name : cache.TypeCode + cache.Id);
                 writer.WriteElementString("desc", poiStyle ? GetPoiDescription(cache) : cache.Name);
-                writer.WriteElementString("url", poiStyle && cache.CacheImage != null ? cache.Id + ".jpg" : cache.Url);
+                writer.WriteElementString("url", poiStyle && cache.CacheImage != null ? "../JPEG/" + cache.Id + ".jpg" : cache.Url);
                 writer.WriteElementString("urlname", cache.Name);
                 writer.WriteElementString("sym", "Geocache");
                 writer.WriteElementString("type", "Geocache|" + cache.Type);
