@@ -163,8 +163,12 @@ class CacheSaver:
       ET.SubElement(groundspeak, 'state').text = cache['region']
     ET.SubElement(groundspeak, 'difficulty').text = str(cache['difficulty'])
     ET.SubElement(groundspeak, 'terrain').text = str(cache['terrain'])
-    ET.SubElement(groundspeak, 'short_description').text = cache['short_description']
-    ET.SubElement(groundspeak, 'long_description').text = self.html_decode(cache['long_description'])
+    short_description = ET.SubElement(groundspeak, 'short_description')
+    short_description.set('html', 'True')
+    short_description.text = cache['short_description']
+    long_description = ET.SubElement(groundspeak, 'long_description')
+    long_description.set('html', 'True')
+    long_description.text = self.html_decode(cache['long_description'])
     hints = ET.SubElement(groundspeak, 'encoded_hints')
     hints.set('html', 'True')
     hints.text = self.html_to_text(cache['hints'])

@@ -79,10 +79,16 @@ namespace GeoLoader.Business.Savers
                 }
                 else
                 {
-                    writer.WriteElementString("groundspeak", "short_description", null, cache.ShortDescription);
-                    writer.WriteElementString("groundspeak", "long_description", null, ReplaceEntities(cache.LongDescription));
-                    writer.WriteStartElement("groundspeak", "encoded_hints", "http://www.groundspeak.com/cache/1/0");
+                    writer.WriteStartElement("groundspeak", "short_description", "http://www.groundspeak.com/cache/1/0");
                     writer.WriteAttributeString("html", "True");
+                    writer.WriteString(cache.ShortDescription);
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("groundspeak", "long_description", "http://www.groundspeak.com/cache/1/0");
+                    writer.WriteAttributeString("html", "True");
+                    writer.WriteString(ReplaceEntities(cache.LongDescription));
+                    writer.WriteEndElement();
+                    writer.WriteStartElement("groundspeak", "encoded_hints", "http://www.groundspeak.com/cache/1/0");
+                    writer.WriteAttributeString("html", "False");
                     writer.WriteString(HtmlToText(cache.Hints));
                     writer.WriteEndElement();
                     writer.WriteStartElement("groundspeak", "logs", "http://www.groundspeak.com/cache/1/0");
