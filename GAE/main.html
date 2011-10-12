@@ -20,8 +20,8 @@
        };
        function translit(name) {
          var ru = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
-         var en = ['A','B','V','G','D','E','E','ZH','Z','I','J','K','L','M','N','O','P','R','S','T', 'U','F','H','C','CH','SH','SHH',String.fromCharCode(35),'Y',String.fromCharCode(39),'JE','JU','JA',
-                   'a','b','v','g','d','e','e','zh','z','i','j','k','l','m','n','o','p','r','s','t','u','f', 'h','c','ch','sh','shh',String.fromCharCode(35),'y',String.fromCharCode(39),'je','ju','ja'];
+         var en = ['A','B','V','G','D','E','E','ZH','Z','I','J','K','L','M','N','O','P','R','S','T', 'U','F','H','C','CH','SH','SHH','','Y','','JE','JU','JA',
+                   'a','b','v','g','d','e','e','zh','z','i','j','k','l','m','n','o','p','r','s','t','u','f', 'h','c','ch','sh','shh','','y','','je','ju','ja'];
          var tmp_str = '';
          for(var i = 0, nameLen = name.length; i < nameLen; i++) {
            var s = name.charAt(i), charIndex = ru.indexOf(s);
