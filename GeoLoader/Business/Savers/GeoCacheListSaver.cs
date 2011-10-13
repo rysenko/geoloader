@@ -49,61 +49,64 @@ namespace GeoLoader.Business.Savers
                 writer.WriteAttributeString("lat", cache.Latitude.ToString(CultureInfo.InvariantCulture));
                 writer.WriteAttributeString("lon", cache.Longitude.ToString(CultureInfo.InvariantCulture));
                 writer.WriteElementString("time", cache.PlacedDate.ToString("s"));
-                writer.WriteElementString("name", poiStyle ? cache.Name : cache.TypeCode + cache.Id);
+                writer.WriteElementString("name", poiStyle ? cache.Name + " (" + cache.TypeCode + cache.Id + ")" : cache.TypeCode + cache.Id);
                 writer.WriteElementString("desc", poiStyle ? GetPoiDescription(cache) : cache.Name);
                 writer.WriteElementString("url", poiStyle && cache.CacheImage != null ? cache.Id + ".jpg" : cache.Url);
                 writer.WriteElementString("urlname", cache.Name);
                 writer.WriteElementString("sym", "Geocache");
                 writer.WriteElementString("type", "Geocache|" + cache.Type);
-                writer.WriteStartElement("groundspeak", "cache", "http://www.groundspeak.com/cache/1/0");
-                writer.WriteAttributeString("id", cache.Id.ToString());
-                writer.WriteAttributeString("available", cache.Available ? "True" : "False");
-                writer.WriteAttributeString("archived", cache.Archived ? "True" : "False");
-                writer.WriteElementString("groundspeak", "type", null, cache.Type);
-                writer.WriteElementString("groundspeak", "name", null, cache.Name);
-                writer.WriteElementString("groundspeak", "placed_by", null, cache.PlacedBy);
-                writer.WriteStartElement("groundspeak", "owner", "http://www.groundspeak.com/cache/1/0");
-                writer.WriteAttributeString("id", cache.PlacedById.ToString());
-                writer.WriteString(cache.PlacedBy);
-                writer.WriteEndElement();
-                writer.WriteElementString("groundspeak", "country", null, cache.Country);
-                if (!string.IsNullOrEmpty(cache.State))
+                if (!poiStyle)
                 {
-                    writer.WriteElementString("groundspeak", "state", null, cache.State);
-                }
-                writer.WriteElementString("groundspeak", "difficulty", null, cache.Difficulty.ToString());
-                writer.WriteElementString("groundspeak", "terrain", null, cache.Terrain.ToString());
-                if (Settings.Default.SaveMinimalInfo)
-                {
-                    writer.WriteElementString("groundspeak", "long_description", null, ReplaceEntities(cache.Hints));
-                }
-                else
-                {
-                    writer.WriteStartElement("groundspeak", "short_description", "http://www.groundspeak.com/cache/1/0");
-                    writer.WriteAttributeString("html", "True");
-                    writer.WriteString(cache.ShortDescription);
+                    writer.WriteStartElement("groundspeak", "cache", "http://www.groundspeak.com/cache/1/0");
+                    writer.WriteAttributeString("id", cache.Id.ToString());
+                    writer.WriteAttributeString("available", cache.Available ? "True" : "False");
+                    writer.WriteAttributeString("archived", cache.Archived ? "True" : "False");
+                    writer.WriteElementString("groundspeak", "type", null, cache.Type);
+                    writer.WriteElementString("groundspeak", "name", null, cache.Name);
+                    writer.WriteElementString("groundspeak", "placed_by", null, cache.PlacedBy);
+                    writer.WriteStartElement("groundspeak", "owner", "http://www.groundspeak.com/cache/1/0");
+                    writer.WriteAttributeString("id", cache.PlacedById.ToString());
+                    writer.WriteString(cache.PlacedBy);
                     writer.WriteEndElement();
-                    writer.WriteStartElement("groundspeak", "long_description", "http://www.groundspeak.com/cache/1/0");
-                    writer.WriteAttributeString("html", "True");
-                    writer.WriteString(ReplaceEntities(cache.LongDescription));
-                    writer.WriteEndElement();
-                    writer.WriteStartElement("groundspeak", "encoded_hints", "http://www.groundspeak.com/cache/1/0");
-                    writer.WriteAttributeString("html", "False");
-                    writer.WriteString(HtmlToText(cache.Hints));
-                    writer.WriteEndElement();
-                    writer.WriteStartElement("groundspeak", "logs", "http://www.groundspeak.com/cache/1/0");
-                    foreach (var logEntry in cache.Log)
+                    writer.WriteElementString("groundspeak", "country", null, cache.Country);
+                    if (!string.IsNullOrEmpty(cache.State))
                     {
-                        writer.WriteStartElement("groundspeak", "log", "http://www.groundspeak.com/cache/1/0");
-                        writer.WriteElementString("groundspeak", "type", null, "Found it");
-                        writer.WriteElementString("groundspeak", "date", null, logEntry.Date.ToString("s"));
-                        writer.WriteElementString("groundspeak", "finder", null, logEntry.Finder);
-                        writer.WriteElementString("groundspeak", "text", null, logEntry.Text);
+                        writer.WriteElementString("groundspeak", "state", null, cache.State);
+                    }
+                    writer.WriteElementString("groundspeak", "difficulty", null, cache.Difficulty.ToString());
+                    writer.WriteElementString("groundspeak", "terrain", null, cache.Terrain.ToString());
+                    if (Settings.Default.SaveMinimalInfo)
+                    {
+                        writer.WriteElementString("groundspeak", "long_description", null, ReplaceEntities(cache.Hints));
+                    }
+                    else
+                    {
+                        writer.WriteStartElement("groundspeak", "short_description", "http://www.groundspeak.com/cache/1/0");
+                        writer.WriteAttributeString("html", "True");
+                        writer.WriteString(cache.ShortDescription);
+                        writer.WriteEndElement();
+                        writer.WriteStartElement("groundspeak", "long_description", "http://www.groundspeak.com/cache/1/0");
+                        writer.WriteAttributeString("html", "True");
+                        writer.WriteString(ReplaceEntities(cache.LongDescription));
+                        writer.WriteEndElement();
+                        writer.WriteStartElement("groundspeak", "encoded_hints", "http://www.groundspeak.com/cache/1/0");
+                        writer.WriteAttributeString("html", "False");
+                        writer.WriteString(HtmlToText(cache.Hints));
+                        writer.WriteEndElement();
+                        writer.WriteStartElement("groundspeak", "logs", "http://www.groundspeak.com/cache/1/0");
+                        foreach (var logEntry in cache.Log)
+                        {
+                            writer.WriteStartElement("groundspeak", "log", "http://www.groundspeak.com/cache/1/0");
+                            writer.WriteElementString("groundspeak", "type", null, "Found it");
+                            writer.WriteElementString("groundspeak", "date", null, logEntry.Date.ToString("s"));
+                            writer.WriteElementString("groundspeak", "finder", null, logEntry.Finder);
+                            writer.WriteElementString("groundspeak", "text", null, logEntry.Text);
+                            writer.WriteEndElement();
+                        }
                         writer.WriteEndElement();
                     }
                     writer.WriteEndElement();
                 }
-                writer.WriteEndElement();
                 writer.WriteEndElement();
             }
             writer.WriteEndElement();
@@ -114,8 +117,7 @@ namespace GeoLoader.Business.Savers
         public string GetPoiDescription(GeoCache cache)
         {
             var result = string.Concat(
-                cache.TypeCode, cache.Id, ", трудность: ", cache.Difficulty, ", местность: ", cache.Terrain, "\n\n",
-                HtmlToText(cache.Hints)/*, "\n\n", HtmlToText(cache.LongDescription)*/
+                "Доступность: ", cache.Difficulty, ", Местность: ", cache.Terrain, "<br>", ReplaceEntities(cache.Hints)
             );
             return result;
         }

@@ -11,6 +11,7 @@ using GeoLoader.Business.Loaders;
 using GeoLoader.Business.Savers;
 using GeoLoader.Entities;
 using GeoLoader.Properties;
+using Microsoft.Win32;
 
 namespace GeoLoader
 {
@@ -25,6 +26,7 @@ namespace GeoLoader
         private List<Region> regions;
         private List<int> caches;
         private string wptName;
+        private string poiLoaderPath;
 
         private void Main_Load(object sender, EventArgs e)
         {
@@ -128,7 +130,14 @@ namespace GeoLoader
 
         private void btnSavePoi_Click(object sender, EventArgs e)
         {
-            btnSave_Click(true);
+            poiLoaderPath = (string) Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Garmin\\Applications\\POI Loader", "InstallDir", "");
+            if (string.IsNullOrEmpty(poiLoaderPath))
+            {
+                MessageBox.Show("Не найден Garmin POI Loader");
+            } else {
+                btnSave_Click(true);
+            }
+            
         }
 
         private void btnSave_Click(bool poiStyle)
@@ -211,7 +220,10 @@ namespace GeoLoader
                             var imageData =
                                 client.DownloadData(cache.CacheImage);
                             var imagePath = imagesFolderPath + "\\" + cache.Id + ".jpg";
-                            imageData = GpsInfoSaver.WriteLongLat(imageData, cache.Latitude, cache.Longitude);
+                            if (!argument.PoiStyle)
+                            {
+                                imageData = GpsInfoSaver.WriteLongLat(imageData, cache.Latitude, cache.Longitude);
+                            }
                             File.WriteAllBytes(imagePath, imageData);
                             if (Settings.Default.SaveTerritoryPhotos)
                             {
@@ -236,6 +248,28 @@ namespace GeoLoader
                         }
                     }
                     imagesSaved++;
+                }
+            }
+            if (argument.PoiStyle)
+            {
+                savingWorker.ReportProgress(99, "Сохранение POI...");
+                var poiPath = Path.Combine(argument.SelectedPath, "POI");
+                Registry.SetValue("HKEY_CURRENT_USER\\SOFTWARE\\Garmin\\POI Loader\\Settings", "Directory", argument.SelectedPath);
+                var psi = new System.Diagnostics.ProcessStartInfo(poiLoaderPath) { Arguments = "/s /d \"" + poiPath + "\"" };
+                var result = System.Diagnostics.Process.Start(psi);
+                result.WaitForExit();
+                var regionFile = GetRegionFileName(argument.SelectedRegion);
+                var regionPath = Path.Combine(poiPath, regionFile);
+                regionPath = Path.ChangeExtension(regionPath, "gpi");
+                if (File.Exists(regionPath))
+                {
+                    File.Delete(regionPath);
+                }
+                File.Move(Path.Combine(poiPath, "Poi.gpi"), regionPath);
+                string[] sourceFiles = Directory.GetFiles(argument.SelectedPath, "*.*");
+                foreach (var sourceFile in sourceFiles)
+                {
+                    File.Delete(sourceFile);
                 }
             }
         }
