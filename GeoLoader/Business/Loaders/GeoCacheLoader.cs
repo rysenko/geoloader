@@ -84,12 +84,12 @@ namespace GeoLoader.Business.Loaders
 
             // Load images
             cacheData = client.DownloadString("http://pda.geocaching.su/pict.php?cid=" + cacheId + "&mode=0");
-            var cacheImages = GetBlockImages("Фотография тайника");
+            var cacheImages = GetBlockImages("Фотография тайника", false);
             if (cacheImages.Count > 0)
             {
                 cache.CacheImage = cacheImages[0];
             }
-            cache.TerritoryImages = GetBlockImages("Фотографии местности");
+            cache.TerritoryImages = GetBlockImages("Фотографии местности", false);
             return cache;
         }
 
@@ -115,11 +115,11 @@ namespace GeoLoader.Business.Loaders
             return matchResult.Groups[2].Value;
         }
 
-        List<string> GetBlockImages(string blockName)
+        List<string> GetBlockImages(string blockName, bool required)
         {
             var blockRegex = new Regex("<b>" + blockName + @":</b><br>([\w\W]+?)<hr>");
             var matchResult = blockRegex.Match(cacheData);
-            if (!matchResult.Success)
+            if (!matchResult.Success && required)
             {
                 throw new Exception("Блок " + blockName + " не найден для кэша " + cacheId);
             }

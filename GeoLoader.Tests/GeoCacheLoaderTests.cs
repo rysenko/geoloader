@@ -19,5 +19,12 @@ namespace GeoLoader.Tests
             var cache = new GeoCacheLoader(347).Load();
             Assert.AreEqual("Россия", cache.Country);
         }
+
+        [Test]
+        public void Load8445()
+        {
+            var cache = new GeoCacheLoader(8445).Load();
+            Assert.AreEqual("Россия", cache.Country);
+        }
     }
 }
