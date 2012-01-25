@@ -173,6 +173,16 @@ namespace GeoLoader
             }
         }
 
+        private string GetRelateiveImagePath(string folderPath, string cacheFullId, int postIndex)
+        {
+            var lastChar = cacheFullId[cacheFullId.Length - 1];
+            var secondToLast = cacheFullId[cacheFullId.Length - 2];
+            var directory = folderPath + "\\" + lastChar + "\\" + secondToLast + "\\" + cacheFullId +
+                (postIndex == 0 ? "\\Spoilers" : "");
+            if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+            return directory + "\\" + cacheFullId + (postIndex == 0 ? "" : "-" + postIndex) + ".jpg";
+        }
+
         private void savingWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var argument = e.Argument as SavingWorkerArgument;
@@ -199,10 +209,10 @@ namespace GeoLoader
             new GeoCacheListSaver(cachesList, argument.PoiStyle).Save(fs);
             fs.Flush();
             fs.Close();
-            if (Settings.Default.GeotagAndSaveCachePhotos && !Settings.Default.SaveMinimalInfo)
+            if (Settings.Default.SaveCachePhotos && !Settings.Default.SaveMinimalInfo)
             {
                 savingWorker.ReportProgress(0, "Сохранение картинок...");
-                var imagesFolderPath = argument.PoiStyle ? argument.SelectedPath : Path.Combine(argument.SelectedPath, "JPEG");
+                var imagesFolderPath = argument.PoiStyle ? argument.SelectedPath : Path.Combine(argument.SelectedPath, "GeocachePhotos");
                 if (!Directory.Exists(imagesFolderPath)) Directory.CreateDirectory(imagesFolderPath);
                 var imagesSaved = 0;
                 foreach (var cache in cachesList)
@@ -219,19 +229,16 @@ namespace GeoLoader
                         {
                             var imageData =
                                 client.DownloadData(cache.CacheImage);
-                            var imagePath = imagesFolderPath + "\\" + cache.Id + ".jpg";
-                            if (!argument.PoiStyle)
-                            {
-                                imageData = GpsInfoSaver.WriteLongLat(imageData, cache.Latitude, cache.Longitude);
-                            }
+                            var imagePath = argument.PoiStyle ? imagesFolderPath + "\\" + cache.Id + ".jpg" :
+                                GetRelateiveImagePath(imagesFolderPath, cache.FullId, 0);
                             File.WriteAllBytes(imagePath, imageData);
-                            if (Settings.Default.SaveTerritoryPhotos)
+                            if (Settings.Default.SaveTerritoryPhotos && !argument.PoiStyle)
                             {
                                 var territoryImageIndex = 1;
                                 foreach (var territoryImage in cache.TerritoryImages)
                                 {
                                     imageData = client.DownloadData(territoryImage);
-                                    imagePath = imagesFolderPath + "\\" + cache.Id + "-" + territoryImageIndex + ".jpg";
+                                    imagePath = GetRelateiveImagePath(imagesFolderPath, cache.FullId, territoryImageIndex);
                                     File.WriteAllBytes(imagePath, imageData);
                                     territoryImageIndex++;
                                 }
