@@ -74,7 +74,7 @@
             this.btnSaveGpx.Location = new System.Drawing.Point(168, 39);
             this.btnSaveGpx.Name = "btnSaveGpx";
             this.btnSaveGpx.Size = new System.Drawing.Size(61, 21);
-            this.btnSaveGpx.TabIndex = 3;
+            this.btnSaveGpx.TabIndex = 2;
             this.btnSaveGpx.Text = "GPX";
             this.btnSaveGpx.UseVisualStyleBackColor = true;
             this.btnSaveGpx.Click += new System.EventHandler(this.btnSaveGpx_Click);
@@ -84,7 +84,7 @@
             this.prgSaving.Location = new System.Drawing.Point(13, 67);
             this.prgSaving.Name = "prgSaving";
             this.prgSaving.Size = new System.Drawing.Size(299, 15);
-            this.prgSaving.TabIndex = 4;
+            this.prgSaving.TabIndex = 5;
             // 
             // savingWorker
             // 
@@ -100,7 +100,7 @@
             this.btnSavePoi.Location = new System.Drawing.Point(230, 39);
             this.btnSavePoi.Name = "btnSavePoi";
             this.btnSavePoi.Size = new System.Drawing.Size(61, 21);
-            this.btnSavePoi.TabIndex = 5;
+            this.btnSavePoi.TabIndex = 3;
             this.btnSavePoi.Text = "POI";
             this.btnSavePoi.UseVisualStyleBackColor = true;
             this.btnSavePoi.Click += new System.EventHandler(this.btnSavePoi_Click);
@@ -110,7 +110,7 @@
             this.btnOptions.Location = new System.Drawing.Point(292, 39);
             this.btnOptions.Name = "btnOptions";
             this.btnOptions.Size = new System.Drawing.Size(20, 21);
-            this.btnOptions.TabIndex = 6;
+            this.btnOptions.TabIndex = 4;
             this.btnOptions.Text = "#";
             this.btnOptions.UseVisualStyleBackColor = true;
             this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);

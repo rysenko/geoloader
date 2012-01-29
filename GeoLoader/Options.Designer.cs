@@ -45,7 +45,7 @@
             this.numCacheExp.Location = new System.Drawing.Point(12, 107);
             this.numCacheExp.Name = "numCacheExp";
             this.numCacheExp.Size = new System.Drawing.Size(48, 20);
-            this.numCacheExp.TabIndex = 0;
+            this.numCacheExp.TabIndex = 4;
             // 
             // label1
             // 
@@ -62,7 +62,7 @@
             this.checkSaveCachePhoto.Location = new System.Drawing.Point(12, 12);
             this.checkSaveCachePhoto.Name = "checkSaveCachePhoto";
             this.checkSaveCachePhoto.Size = new System.Drawing.Size(190, 17);
-            this.checkSaveCachePhoto.TabIndex = 2;
+            this.checkSaveCachePhoto.TabIndex = 0;
             this.checkSaveCachePhoto.Text = "Сохранять фотографию тайника";
             this.checkSaveCachePhoto.UseVisualStyleBackColor = true;
             // 
@@ -72,7 +72,7 @@
             this.checkTruncateDescriptions.Location = new System.Drawing.Point(12, 58);
             this.checkTruncateDescriptions.Name = "checkTruncateDescriptions";
             this.checkTruncateDescriptions.Size = new System.Drawing.Size(260, 17);
-            this.checkTruncateDescriptions.TabIndex = 3;
+            this.checkTruncateDescriptions.TabIndex = 2;
             this.checkTruncateDescriptions.Text = "Обрезать длинные описания (до 8192 знаков)";
             this.checkTruncateDescriptions.UseVisualStyleBackColor = true;
             // 
@@ -90,7 +90,7 @@
             this.numLogsInJournal.Location = new System.Drawing.Point(12, 81);
             this.numLogsInJournal.Name = "numLogsInJournal";
             this.numLogsInJournal.Size = new System.Drawing.Size(48, 20);
-            this.numLogsInJournal.TabIndex = 5;
+            this.numLogsInJournal.TabIndex = 3;
             // 
             // checkSaveTerritoryPhotos
             // 
@@ -98,7 +98,7 @@
             this.checkSaveTerritoryPhotos.Location = new System.Drawing.Point(12, 35);
             this.checkSaveTerritoryPhotos.Name = "checkSaveTerritoryPhotos";
             this.checkSaveTerritoryPhotos.Size = new System.Drawing.Size(201, 17);
-            this.checkSaveTerritoryPhotos.TabIndex = 6;
+            this.checkSaveTerritoryPhotos.TabIndex = 1;
             this.checkSaveTerritoryPhotos.Text = "Сохранять фотографии местности";
             this.checkSaveTerritoryPhotos.UseVisualStyleBackColor = true;
             // 
