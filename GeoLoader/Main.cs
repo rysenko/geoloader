@@ -222,37 +222,36 @@ namespace GeoLoader
                         e.Cancel = true;
                         break;
                     }
-                    if (!string.IsNullOrEmpty(cache.CacheImage))
+                    var client = new Client();
+                    try
                     {
-                        var client = new Client();
-                        try
+                        if (!string.IsNullOrEmpty(cache.CacheImage))
                         {
-                            var imageData =
-                                client.DownloadData(cache.CacheImage);
+                            var imageData = client.DownloadData(cache.CacheImage);
                             var imagePath = argument.PoiStyle ? imagesFolderPath + "\\" + cache.Id + ".jpg" :
                                 GetRelateiveImagePath(imagesFolderPath, cache.FullId, 0);
                             File.WriteAllBytes(imagePath, imageData);
-                            if (Settings.Default.SaveTerritoryPhotos && !argument.PoiStyle)
+                        }
+                        if (Settings.Default.SaveTerritoryPhotos && !argument.PoiStyle)
+                        {
+                            var territoryImageIndex = 1;
+                            foreach (var territoryImage in cache.TerritoryImages)
                             {
-                                var territoryImageIndex = 1;
-                                foreach (var territoryImage in cache.TerritoryImages)
-                                {
-                                    imageData = client.DownloadData(territoryImage);
-                                    imagePath = GetRelateiveImagePath(imagesFolderPath, cache.FullId, territoryImageIndex);
-                                    File.WriteAllBytes(imagePath, imageData);
-                                    territoryImageIndex++;
-                                }
+                                var imageData = client.DownloadData(territoryImage);
+                                var imagePath = GetRelateiveImagePath(imagesFolderPath, cache.FullId, territoryImageIndex);
+                                File.WriteAllBytes(imagePath, imageData);
+                                territoryImageIndex++;
                             }
-                            savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count);
                         }
-                        catch (WebException)
-                        {
-                            savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count, "Пропущена " + cache.Id);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, "Ошибка");
-                        }
+                        savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count);
+                    }
+                    catch (WebException)
+                    {
+                        savingWorker.ReportProgress(imagesSaved * 100 / cachesList.Count, "Пропущена " + cache.Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Ошибка");
                     }
                     imagesSaved++;
                 }
