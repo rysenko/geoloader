@@ -23,57 +23,75 @@ namespace GeoLoader.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public int CacheExpirationInDays {
             get {
                 return ((int)(this["CacheExpirationInDays"]));
             }
+            set {
+                this["CacheExpirationInDays"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool SaveCachePhotos {
             get {
                 return ((bool)(this["SaveCachePhotos"]));
             }
+            set {
+                this["SaveCachePhotos"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool TruncateLongCacheDescriptions {
             get {
                 return ((bool)(this["TruncateLongCacheDescriptions"]));
             }
+            set {
+                this["TruncateLongCacheDescriptions"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public int MaxLogEntriesToSave {
             get {
                 return ((int)(this["MaxLogEntriesToSave"]));
             }
+            set {
+                this["MaxLogEntriesToSave"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool SaveMinimalInfo {
             get {
                 return ((bool)(this["SaveMinimalInfo"]));
             }
+            set {
+                this["SaveMinimalInfo"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool SaveTerritoryPhotos {
             get {
                 return ((bool)(this["SaveTerritoryPhotos"]));
+            }
+            set {
+                this["SaveTerritoryPhotos"] = value;
             }
         }
     }

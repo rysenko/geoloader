@@ -36,6 +36,7 @@
             this.prgSaving = new System.Windows.Forms.ProgressBar();
             this.savingWorker = new System.ComponentModel.BackgroundWorker();
             this.btnSavePoi = new System.Windows.Forms.Button();
+            this.btnOptions = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ddlCountry
@@ -82,7 +83,7 @@
             // 
             this.prgSaving.Location = new System.Drawing.Point(13, 67);
             this.prgSaving.Name = "prgSaving";
-            this.prgSaving.Size = new System.Drawing.Size(278, 15);
+            this.prgSaving.Size = new System.Drawing.Size(299, 15);
             this.prgSaving.TabIndex = 4;
             // 
             // savingWorker
@@ -104,11 +105,22 @@
             this.btnSavePoi.UseVisualStyleBackColor = true;
             this.btnSavePoi.Click += new System.EventHandler(this.btnSavePoi_Click);
             // 
+            // btnOptions
+            // 
+            this.btnOptions.Location = new System.Drawing.Point(292, 39);
+            this.btnOptions.Name = "btnOptions";
+            this.btnOptions.Size = new System.Drawing.Size(20, 21);
+            this.btnOptions.TabIndex = 6;
+            this.btnOptions.Text = "#";
+            this.btnOptions.UseVisualStyleBackColor = true;
+            this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 92);
+            this.ClientSize = new System.Drawing.Size(323, 92);
+            this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.btnSavePoi);
             this.Controls.Add(this.prgSaving);
             this.Controls.Add(this.btnSaveGpx);
@@ -137,6 +149,7 @@
         private System.Windows.Forms.ProgressBar prgSaving;
         private System.ComponentModel.BackgroundWorker savingWorker;
         private System.Windows.Forms.Button btnSavePoi;
+        private System.Windows.Forms.Button btnOptions;
 
 
     }

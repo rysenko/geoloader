@@ -2,22 +2,22 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="GeoLoader.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="CacheExpirationInDays" Type="System.Int32" Scope="Application">
+    <Setting Name="CacheExpirationInDays" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="SaveCachePhotos" Type="System.Boolean" Scope="Application">
+    <Setting Name="SaveCachePhotos" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="TruncateLongCacheDescriptions" Type="System.Boolean" Scope="Application">
+    <Setting Name="TruncateLongCacheDescriptions" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="MaxLogEntriesToSave" Type="System.Int32" Scope="Application">
+    <Setting Name="MaxLogEntriesToSave" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
-    <Setting Name="SaveMinimalInfo" Type="System.Boolean" Scope="Application">
+    <Setting Name="SaveMinimalInfo" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="SaveTerritoryPhotos" Type="System.Boolean" Scope="Application">
+    <Setting Name="SaveTerritoryPhotos" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>

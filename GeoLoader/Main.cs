@@ -311,5 +311,10 @@ namespace GeoLoader
             }
             prgSaving.Value = e.ProgressPercentage;
         }
+
+        private void btnOptions_Click(object sender, EventArgs e)
+        {
+            new Options().ShowDialog();
+        }
     }
 }
