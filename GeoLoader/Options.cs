@@ -33,7 +33,7 @@ namespace GeoLoader
             Settings.Default.SaveTerritoryPhotos = checkSaveTerritoryPhotos.Checked;
             Settings.Default.TruncateLongCacheDescriptions = checkTruncateDescriptions.Checked;
             Settings.Default.Save();
-            Settings.Default.Upgrade();
+            Settings.Default.Reload();
         }
     }
 }
