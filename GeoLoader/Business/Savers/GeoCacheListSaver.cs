@@ -36,12 +36,13 @@ namespace GeoLoader.Business.Savers
             writer.WriteElementString("url", "http://www.geocaching.su");
             writer.WriteElementString("urlname", "Geocaching - High Tech Treasure Hunting");
             writer.WriteElementString("keywords", "cache, geocache");
+            /* This is no longer needed
             writer.WriteStartElement("bounds");
             writer.WriteAttributeString("minlat", "-90");
             writer.WriteAttributeString("minlon", "0");
             writer.WriteAttributeString("maxlat", "90");
             writer.WriteAttributeString("maxlon", "180");
-            writer.WriteEndElement();
+            writer.WriteEndElement();*/
             foreach (var cache in list)
             {
                 if (Settings.Default.SaveMinimalInfo && cache.TypeCode != "TR") continue;
@@ -61,20 +62,20 @@ namespace GeoLoader.Business.Savers
                     writer.WriteAttributeString("id", cache.Id.ToString());
                     writer.WriteAttributeString("available", cache.Available ? "True" : "False");
                     writer.WriteAttributeString("archived", cache.Archived ? "True" : "False");
-                    writer.WriteElementString("groundspeak", "type", null, cache.Type);
                     writer.WriteElementString("groundspeak", "name", null, cache.Name);
                     writer.WriteElementString("groundspeak", "placed_by", null, cache.PlacedBy);
                     writer.WriteStartElement("groundspeak", "owner", "http://www.groundspeak.com/cache/1/0");
                     writer.WriteAttributeString("id", cache.PlacedById.ToString());
                     writer.WriteString(cache.PlacedBy);
                     writer.WriteEndElement();
+                    writer.WriteElementString("groundspeak", "type", null, cache.Type);
+                    writer.WriteElementString("groundspeak", "difficulty", null, cache.Difficulty.ToString());
+                    writer.WriteElementString("groundspeak", "terrain", null, cache.Terrain.ToString());
                     writer.WriteElementString("groundspeak", "country", null, cache.Country);
                     if (!string.IsNullOrEmpty(cache.State))
                     {
                         writer.WriteElementString("groundspeak", "state", null, cache.State);
                     }
-                    writer.WriteElementString("groundspeak", "difficulty", null, cache.Difficulty.ToString());
-                    writer.WriteElementString("groundspeak", "terrain", null, cache.Terrain.ToString());
                     if (Settings.Default.SaveMinimalInfo)
                     {
                         writer.WriteElementString("groundspeak", "long_description", null, ReplaceEntities(cache.Hints));
@@ -90,15 +91,14 @@ namespace GeoLoader.Business.Savers
                         writer.WriteString(ReplaceEntities(cache.LongDescription));
                         writer.WriteEndElement();
                         writer.WriteStartElement("groundspeak", "encoded_hints", "http://www.groundspeak.com/cache/1/0");
-                        writer.WriteAttributeString("html", "False");
                         writer.WriteString(HtmlToText(cache.Hints));
                         writer.WriteEndElement();
                         writer.WriteStartElement("groundspeak", "logs", "http://www.groundspeak.com/cache/1/0");
                         foreach (var logEntry in cache.Log)
                         {
                             writer.WriteStartElement("groundspeak", "log", "http://www.groundspeak.com/cache/1/0");
-                            writer.WriteElementString("groundspeak", "type", null, "Found it");
                             writer.WriteElementString("groundspeak", "date", null, logEntry.Date.ToString("s"));
+                            writer.WriteElementString("groundspeak", "type", null, "Found it");
                             writer.WriteElementString("groundspeak", "finder", null, logEntry.Finder);
                             writer.WriteElementString("groundspeak", "text", null, logEntry.Text);
                             writer.WriteEndElement();

@@ -134,7 +134,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:2.0.50727"
+                "FrameworkVersion" = "8:2.0.50727 "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=76617"
                 }
@@ -218,15 +218,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GeoLoader"
-        "ProductCode" = "8:{677CA549-97F0-4CF0-8F8D-02F6DE6E11E4}"
-        "PackageCode" = "8:{F5B3EAFE-9D18-4826-906B-0B726A263BD0}"
+        "ProductCode" = "8:{053B6E8D-8C3D-473A-9E15-E94960CE38FC}"
+        "PackageCode" = "8:{F0974608-13CD-4B2E-92AC-A6CB1696ECAC}"
         "UpgradeCode" = "8:{4AF3C7E3-FED7-40CD-AADD-A9DEAEAFEF06}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.9"
+        "ProductVersion" = "8:1.2.0"
         "Manufacturer" = "8:Rysenko"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
