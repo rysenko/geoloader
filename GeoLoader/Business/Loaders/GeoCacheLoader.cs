@@ -21,7 +21,7 @@ namespace GeoLoader.Business.Loaders
         {
             var cache = new GeoCache {Id = cacheId, Url = "http://pda.geocaching.su/cache.php?cid=" + cacheId};
             cacheData = client.DownloadString(cache.Url);
-            cache.Country = GetFieldValue("Страна", true);
+            cache.Country = GetFieldValue("Страна", false); //TODO: Change to required once pda.geocaching.su is fixed
             cache.State = GetFieldValue("Область", false);
             cache.Difficulty = int.Parse(GetFieldValue("Доступность", true));
             cache.Terrain = int.Parse(GetFieldValue("Местность", true));
@@ -48,7 +48,7 @@ namespace GeoLoader.Business.Loaders
             cache.LongDescription = GetBlockValue("Описание окружающей местности", true);
             cache.CacheContents = GetBlockValue("Содержимое тайника", false);
             cache.Hints = GetBlockValue("Описание тайника", false);
-            var nameRegex = new Regex(@"<p><b>([^<]+)</b> от <b><a href=""profile.php\?uid=(\d+)"">'(.+?)'</a></b>(?:<br>|\s+)<i>\([^<]+? (\w{2})" + cacheId + @"\)</i>");
+            var nameRegex = new Regex(@"<p><b>([^<]+)</b> от <b><a href=""profile.php\?uid=(\d+)"">'(.+?)'</a></b>(?:<br>|\s+)<i>\([^<]*? (\w{2})" + cacheId + @"\)</i>");
             var nameMathResult = nameRegex.Match(cacheData);
             if (!nameMathResult.Success)
             {

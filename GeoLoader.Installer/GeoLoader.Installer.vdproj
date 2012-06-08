@@ -21,7 +21,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_410BA530701C2C7570D4ED9CBDE9CA4C"
+        "MsmKey" = "8:_FC5D3300805E2FF761704B7662983812"
         "OwnerKey" = "8:_0EAA14DDE66E49BB9EC6CE1B1CE92F84"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -34,7 +34,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_410BA530701C2C7570D4ED9CBDE9CA4C"
+        "OwnerKey" = "8:_FC5D3300805E2FF761704B7662983812"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -134,7 +134,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:2.0.50727 "
+                "FrameworkVersion" = "8:2.0.50727  "
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=76617"
                 }
@@ -142,14 +142,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_410BA530701C2C7570D4ED9CBDE9CA4C"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FC5D3300805E2FF761704B7662983812"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:UnidecodeSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86"
+            "AssemblyAsmDisplayName" = "8:UnidecodeSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_410BA530701C2C7570D4ED9CBDE9CA4C"
+                    "_FC5D3300805E2FF761704B7662983812"
                     {
                     "Name" = "8:UnidecodeSharp.dll"
                     "Attributes" = "3:512"
@@ -218,15 +218,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:GeoLoader"
-        "ProductCode" = "8:{053B6E8D-8C3D-473A-9E15-E94960CE38FC}"
-        "PackageCode" = "8:{F0974608-13CD-4B2E-92AC-A6CB1696ECAC}"
+        "ProductCode" = "8:{51EB06C7-077A-4904-A059-E9406854C632}"
+        "PackageCode" = "8:{2B995396-25A9-4EB5-8ED9-CA87499F70EB}"
         "UpgradeCode" = "8:{4AF3C7E3-FED7-40CD-AADD-A9DEAEAFEF06}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.2.0"
+        "ProductVersion" = "8:1.2.1"
         "Manufacturer" = "8:Rysenko"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
