@@ -71,7 +71,10 @@ namespace GeoLoader.Business.Savers
                     writer.WriteElementString("groundspeak", "type", null, cache.Type);
                     writer.WriteElementString("groundspeak", "difficulty", null, cache.Difficulty.ToString());
                     writer.WriteElementString("groundspeak", "terrain", null, cache.Terrain.ToString());
-                    writer.WriteElementString("groundspeak", "country", null, cache.Country);
+                    if (!string.IsNullOrEmpty(cache.Country))
+                    {
+                        writer.WriteElementString("groundspeak", "country", null, cache.Country);
+                    }
                     if (!string.IsNullOrEmpty(cache.State))
                     {
                         writer.WriteElementString("groundspeak", "state", null, cache.State);

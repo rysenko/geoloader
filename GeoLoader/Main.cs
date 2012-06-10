@@ -197,6 +197,14 @@ namespace GeoLoader
                     break;
                 }
                 var cacheEntity = new GeoCacheLoader(cacheId).Load();
+                if (string.IsNullOrEmpty(cacheEntity.Country))
+                {
+                    cacheEntity.Country = ddlCountry.Text;
+                }
+                if (string.IsNullOrEmpty(cacheEntity.State))
+                {
+                    cacheEntity.State = ddlRegion.Text;
+                }
                 cachesList.Add(cacheEntity);
                 savingWorker.ReportProgress(cachesLoaded * 100 / caches.Count);
                 cachesLoaded++;

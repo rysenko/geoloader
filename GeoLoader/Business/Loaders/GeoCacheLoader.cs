@@ -21,8 +21,9 @@ namespace GeoLoader.Business.Loaders
         {
             var cache = new GeoCache {Id = cacheId, Url = "http://pda.geocaching.su/cache.php?cid=" + cacheId};
             cacheData = client.DownloadString(cache.Url);
-            cache.Country = GetFieldValue("Страна", false); //TODO: Change to required once pda.geocaching.su is fixed
+            cache.Country = GetFieldValue("Страна", false);
             cache.State = GetFieldValue("Область", false);
+            if (cache.State == " ") cache.State = null;
             cache.Difficulty = int.Parse(GetFieldValue("Доступность", true));
             cache.Terrain = int.Parse(GetFieldValue("Местность", true));
             var coordinates = GetFieldValue(@"Координаты \(WGS 84\)", true).Replace("<font class=coords>", "").Replace("</font>", "");
