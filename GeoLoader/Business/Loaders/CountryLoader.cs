@@ -9,16 +9,17 @@ namespace GeoLoader.Business.Loaders
         public List<Country> List()
         {
             var result = new List<Country>();
-            var countriesData = client.DownloadString("http://pda.geocaching.su/list.php");
-            var countryRegex = new Regex(@"<a href=""list.php\?c=(\d+)"">([^<]+)</a>");
+            var countriesData = client.DownloadString("http://www.geocaching.su/site/popup/selex.php");
+            var countryRegex = new Regex(@"id=""(\d+)"" checked onclick=""uncheckcountry\(this\)""></th><th colspan=2>([^<]+)</th>");
             var countries = countryRegex.Matches(countriesData);
             foreach (Match country in countries)
             {
-                result.Add(new Country
-                               {
-                                   Id = int.Parse(country.Groups[1].Value),
-                                   Name = country.Groups[2].Value
-                               });
+                var newCountry = new Country
+                                  {
+                                      Id = int.Parse(country.Groups[1].Value),
+                                      Name = country.Groups[2].Value
+                                  };
+                if (newCountry.Id > 0) result.Add(newCountry);
             }
             if (result.Count < 2)
             {
@@ -38,9 +39,9 @@ namespace GeoLoader.Business.Loaders
                     new Country {Id = 13, Name = "Узбекистан"},
                     new Country {Id = 14, Name = "Украина"},
                     new Country {Id = 15, Name = "Эстония"},
-                    new Country {Id = 0, Name = "Дальнее зарубежье"}
                 };
             }
+            //result.Add(new Country {Id = 0, Name = "Дальнее зарубежье"});
             return result;
         }
     }
