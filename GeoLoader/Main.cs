@@ -121,6 +121,8 @@ namespace GeoLoader
             public string SelectedPath;
             public string SelectedRegion;
             public bool PoiStyle;
+            public string CountryText;
+            public string RegionText;
         }
 
         private void btnSaveGpx_Click(object sender, EventArgs e)
@@ -160,7 +162,14 @@ namespace GeoLoader
                     }
                     
                     var selectedRegion = ddlRegion.SelectedItem != null ? ddlRegion.SelectedItem.ToString() : wptName;
-                    savingWorker.RunWorkerAsync(new SavingWorkerArgument { SelectedPath = dialog.SelectedPath, SelectedRegion = selectedRegion, PoiStyle = poiStyle});
+                    savingWorker.RunWorkerAsync(new SavingWorkerArgument
+                    {
+                        SelectedPath = dialog.SelectedPath,
+                        SelectedRegion = selectedRegion,
+                        PoiStyle = poiStyle,
+                        CountryText = ddlCountry.Text,
+                        RegionText = ddlRegion.Text
+                    });
                 }
             }
             else
@@ -199,11 +208,11 @@ namespace GeoLoader
                 var cacheEntity = new GeoCacheLoader(cacheId).Load();
                 if (string.IsNullOrEmpty(cacheEntity.Country))
                 {
-                    cacheEntity.Country = ddlCountry.Text;
+                    cacheEntity.Country = argument.CountryText;
                 }
                 if (string.IsNullOrEmpty(cacheEntity.State))
                 {
-                    cacheEntity.State = ddlRegion.Text;
+                    cacheEntity.State = argument.RegionText;
                 }
                 cachesList.Add(cacheEntity);
                 savingWorker.ReportProgress(cachesLoaded * 100 / caches.Count);
