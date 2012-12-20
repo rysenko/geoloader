@@ -103,7 +103,7 @@ namespace GeoLoader.Business.Savers
                             writer.WriteElementString("groundspeak", "date", null, logEntry.Date.ToString("s"));
                             writer.WriteElementString("groundspeak", "type", null, "Found it");
                             writer.WriteElementString("groundspeak", "finder", null, logEntry.Finder);
-                            writer.WriteElementString("groundspeak", "text", null, logEntry.Text);
+                            writer.WriteElementString("groundspeak", "text", null, ReplaceWrongXmlChars(logEntry.Text));
                             writer.WriteEndElement();
                         }
                         writer.WriteEndElement();
@@ -123,6 +123,12 @@ namespace GeoLoader.Business.Savers
                 "Доступность: ", cache.Difficulty, ", Местность: ", cache.Terrain, "<br>", ReplaceEntities(cache.Hints)
             );
             return result;
+        }
+
+        public string ReplaceWrongXmlChars(string text)
+        {
+            const string re = @"[^\x09\x0A\x0D\x20-\xD7FF\xE000-\xFFFD\x10000-x10FFFF]";
+            return Regex.Replace(text, re, "");
         }
 
         public string HtmlToText(string htmlCode)
