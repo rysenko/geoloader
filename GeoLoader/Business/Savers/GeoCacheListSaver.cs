@@ -127,7 +127,7 @@ namespace GeoLoader.Business.Savers
 
         public string ReplaceWrongXmlChars(string text)
         {
-            const string re = @"[^\x09\x0A\x0D\x20-\xD7FF\xE000-\xFFFD\x10000-x10FFFF]";
+            const string re = @"[\x00-\x08\x0B\x0C\x0E\x0F]";
             return Regex.Replace(text, re, "");
         }
 
