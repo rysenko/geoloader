@@ -1,0 +1,39 @@
+
+# /
+/_ReSharper.GeoLoader
+/*.user
+/GeoLoader.suo
+/*.suo
+
+# /GAE/
+
+# /GeoLoader/
+/GeoLoader/bin
+/GeoLoader/obj
+/GeoLoader/*.user
+/GeoLoader/[Bb]in
+/GeoLoader/[Dd]ebug
+/GeoLoader/[Rr]elease
+/GeoLoader/*.aps
+/GeoLoader/*.eto
+/GeoLoader/Service References
+
+# /GeoLoader.Installer/
+/GeoLoader.Installer/Debug
+/GeoLoader.Installer/Release
+/GeoLoader.Installer/Output
+
+# /GeoLoader.Tests/
+/GeoLoader.Tests/bin
+/GeoLoader.Tests/obj
+/GeoLoader.Tests/[Bb]in
+/GeoLoader.Tests/[Dd]ebug
+/GeoLoader.Tests/[Rr]elease
+/GeoLoader.Tests/*.user
+/GeoLoader.Tests/*.aps
+/GeoLoader.Tests/*.eto
+
+# /UnidecodeSharp/
+/UnidecodeSharp/*.user
+/UnidecodeSharp/bin
+/UnidecodeSharp/obj
