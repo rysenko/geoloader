@@ -59,7 +59,10 @@ namespace GeoLoader.Business.Loaders
             cache.PlacedById = int.Parse(nameMathResult.Groups[2].Value);
             cache.PlacedBy = nameMathResult.Groups[3].Value;
             cache.TypeCode = nameMathResult.Groups[4].Value;
-            var created = GetFieldValue("Создан", true);
+            var created = GetFieldValue("Создан", false);
+            if(created == "")
+                created = GetFieldValue("Опубликован", true); 
+            
             cache.PlacedDate = DateTime.ParseExact(created, "dd.MM.yyyy", CultureInfo.InvariantCulture);
             
             // Load log

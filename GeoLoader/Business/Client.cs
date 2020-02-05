@@ -12,8 +12,11 @@ namespace GeoLoader.Business
         WebClient client = new WebClient();
         private string cachePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                                                 "GeoLoader\\Cache");
+        
         public string DownloadString(string url)
         {
+            client.Encoding = System.Text.Encoding.UTF8;
+
             if (!Directory.Exists(cachePath))
             {
                 Directory.CreateDirectory(cachePath);
