@@ -12,7 +12,7 @@ namespace GeoLoader.Business.Loaders
             bool cachesFound;
             do
             {
-                var url = string.Format("http://pda.geocaching.su/list.php?c={0}&a={1}&skip={2}",
+                var url = string.Format("https://pda.geocaching.su/list.php?c={0}&a={1}&skip={2}",
                                         countryId, regionId, skip);
                 var cachesData = client.DownloadString(url);
                 var cacheRegex = new Regex(@"<a href=""cache.php\?cid=(\d+)""><b>[^<]+</b></a>");

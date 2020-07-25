@@ -9,7 +9,7 @@ namespace GeoLoader.Business.Loaders
         public List<Country> List()
         {
             var result = new List<Country>();
-            var countriesData = client.DownloadString("http://www.geocaching.su/site/popup/selex.php");
+            var countriesData = client.DownloadString("https://geocaching.su/site/popup/selex.php");
             var countryRegex = new Regex(@"id=""(\d+)"" checked onclick=""uncheckcountry\(this\)""></th><th colspan=2>([^<]+)</th>");
             var countries = countryRegex.Matches(countriesData);
             foreach (Match country in countries)

@@ -10,15 +10,15 @@ namespace GeoLoader.Business.Loaders
         public List<Region> List(int countryId)
         {
             var result = new List<Region>();
-            var regionsData = client.DownloadString("http://www.geocaching.su/site/popup/selex.php");
-            var regionRegex = new Regex(string.Format(@"value=""{0},(\d+)"" checked></td><td>([^<]+)</td>", countryId));
+            var regionsData = client.DownloadString("https://geocaching.su/site/popup/selex.php");
+            var regionRegex = new Regex(string.Format(@"value=\""{0},(\d+)\"" checked ([\w=""\s()]+)></td><td>([^<]+)\n", countryId));
             var regions = regionRegex.Matches(regionsData);
             foreach (Match region in regions)
             {
                 var newRegion = new Region
                                     {
                                         Id = int.Parse(region.Groups[1].Value),
-                                        Name = region.Groups[2].Value
+                                        Name = region.Groups[3].Value
                                     };
                 if (newRegion.Id > 0) result.Add(newRegion);
             }
@@ -98,6 +98,10 @@ namespace GeoLoader.Business.Loaders
                     result.Add(new Region { Id = currentIndex, Name = regionsRawStrArray[i] });
                 }
             }
+            result.Sort(delegate (Region x, Region y)
+            {
+                return x.Name.CompareTo(y.Name);
+            });
             return result;
         }
     }
