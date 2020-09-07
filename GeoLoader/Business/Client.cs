@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using GeoLoader.Properties;
 
 namespace GeoLoader.Business
@@ -36,6 +37,7 @@ namespace GeoLoader.Business
             string result;
             if (redownloadFile)
             {
+                Task.Delay(50).Wait();
                 result = client.DownloadString(url);
                 File.WriteAllText(cacheFilePath, result);
             }

@@ -15,12 +15,13 @@ namespace GeoLoader.Business.Loaders
                 var url = string.Format("https://pda.geocaching.su/list.php?c={0}&a={1}&skip={2}",
                                         countryId, regionId, skip);
                 var cachesData = client.DownloadString(url);
-                var cacheRegex = new Regex(@"<a href=""cache.php\?cid=(\d+)""><b>[^<]+</b></a>");
+                var cacheRegex = new Regex(@"<a href=""cache.php\?cid=(\d+)""><b>[^<]+</b></a> от (.+?)<i>\((\w+)");
                 var caches = cacheRegex.Matches(cachesData);
                 cachesFound = false;
                 foreach (Match cache in caches)
                 {
-                    result.Add(int.Parse(cache.Groups[1].Value));
+                    if(cache.Groups[3].Value != "Конкурс")
+                        result.Add(int.Parse(cache.Groups[1].Value));
                     cachesFound = true;
                 }
                 skip += 20;
