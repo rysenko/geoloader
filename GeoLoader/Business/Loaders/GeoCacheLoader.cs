@@ -49,7 +49,7 @@ namespace GeoLoader.Business.Loaders
             cache.LongDescription = GetBlockValue("Описание окружающей местности", true);
             cache.CacheContents = GetBlockValue("Содержимое тайника", false);
             cache.Hints = GetBlockValue("Описание тайника", false);
-            var nameRegex = new Regex(@"<p><b>([^<]+)</b> от <b><a href=\""profile.php\?uid=(\d+)\"">(.+?)</a></b>(?:<br>|\s+)<i>\([^<]*? (\w{2})" + cacheId + @"\)</i>");
+            var nameRegex = new Regex(@"<p><b>([^<]+)</b> от <b><a href=\""/user/(\d+)\"">(.+?)</a></b>(?:<br>|\s+)<i>\([^<]*? (\w{2})" + cacheId + @"\)</i>");
             var nameMathResult = nameRegex.Match(cacheData);
             if (!nameMathResult.Success)
             {
@@ -66,7 +66,7 @@ namespace GeoLoader.Business.Loaders
             cache.PlacedDate = DateTime.ParseExact(created, "dd.MM.yyyy", CultureInfo.InvariantCulture);
             
             // Load log
-            var logData = client.DownloadString("http://pda.geocaching.su/note.php?cid=" + cacheId);
+            var logData = client.DownloadString("https://pda.geocaching.su/note.php?cid=" + cacheId);
             var logRegex = new Regex(@"<b><u>([^<]+)</u></b><i> от ([0-9\.]+)</i><br> ([\w\W]+?)<br>(<p>)?<hr>");
             var logResult = logRegex.Matches(logData);
             var logsAdded = 0;
@@ -87,7 +87,7 @@ namespace GeoLoader.Business.Loaders
             }
 
             // Load images
-            cacheData = client.DownloadString("http://pda.geocaching.su/pict.php?cid=" + cacheId + "&mode=0");
+            cacheData = client.DownloadString("https://pda.geocaching.su/pict.php?cid=" + cacheId + "&mode=0");
             var cacheImages = GetBlockImages("Фотография тайника", false);
             if (cacheImages.Count > 0)
             {

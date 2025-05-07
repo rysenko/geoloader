@@ -23,7 +23,6 @@ AppPublisherURL=http://rysenko.com/
 
 [Files]
 Source: {#SrcApp}; DestDir: "{app}"
-Source: "{#SrcDir}UnidecodeSharp.dll"; DestDir: "{app}"
 
 [Icons]
 Name: "{commonprograms}\GeoLoader"; Filename: "{app}\{#AppFileName}"; WorkingDir: "{app}"

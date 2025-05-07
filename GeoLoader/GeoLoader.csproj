@@ -165,12 +165,6 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UnidecodeSharp\UnidecodeSharp.csproj">
-      <Project>{B268B199-851B-4326-BB4C-F054FCFBA4D4}</Project>
-      <Name>UnidecodeSharp</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
