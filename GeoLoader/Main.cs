@@ -5,7 +5,6 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Windows.Forms;
-using BinaryAnalysis.UnidecodeSharp;
 using GeoLoader.Business;
 using GeoLoader.Business.Loaders;
 using GeoLoader.Business.Savers;
@@ -113,7 +112,7 @@ namespace GeoLoader
                 fileName = fileName.Substring(0, spacePos);
                 fileName = fileName.TrimEnd(',');
             }
-            return Unidecoder.Unidecode(fileName) + ".gpx";
+            return fileName + ".gpx";
         }
 
         internal class SavingWorkerArgument

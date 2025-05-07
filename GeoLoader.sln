@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLoader", "GeoLoader\GeoL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLoader.Tests", "GeoLoader.Tests\GeoLoader.Tests.csproj", "{F65100DB-FF43-4612-A26E-2A558B024CAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnidecodeSharp", "UnidecodeSharp\UnidecodeSharp.csproj", "{B268B199-851B-4326-BB4C-F054FCFBA4D4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
